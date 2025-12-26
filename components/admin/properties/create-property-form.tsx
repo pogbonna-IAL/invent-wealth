@@ -11,6 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { createProperty } from "@/app/actions/admin/properties";
 import { Loader2, ArrowLeft } from "lucide-react";
 import Link from "next/link";
+import { PropertyType, ShortletModel, PropertyStatus } from "@prisma/client";
 
 const propertyTypes = [
   "APARTMENT",
@@ -70,7 +71,15 @@ export function CreatePropertyForm() {
         .slice(0, 20);
 
       const result = await createProperty({
-        ...formData,
+        name: formData.name,
+        slug: formData.slug,
+        city: formData.city,
+        country: formData.country,
+        addressShort: formData.addressShort,
+        description: formData.description,
+        propertyType: formData.propertyType as PropertyType,
+        shortletModel: formData.shortletModel as ShortletModel,
+        status: formData.status as PropertyStatus,
         totalShares: parseInt(formData.totalShares),
         pricePerShare: parseFloat(formData.pricePerShare),
         minShares: parseInt(formData.minShares),
@@ -78,6 +87,7 @@ export function CreatePropertyForm() {
         projectedAnnualYieldPct: parseFloat(formData.projectedAnnualYieldPct),
         highlights: highlightsArray,
         gallery: galleryArray,
+        coverImage: formData.coverImage || undefined,
         createdAt: formData.createdAt || undefined,
       });
 

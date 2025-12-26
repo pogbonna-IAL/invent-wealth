@@ -12,6 +12,7 @@ import { updateProperty } from "@/app/actions/admin/properties";
 import { Loader2, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import type { Property } from "@prisma/client";
+import { PropertyType, ShortletModel, PropertyStatus } from "@prisma/client";
 
 const propertyTypes = [
   "APARTMENT",
@@ -86,7 +87,15 @@ export function EditPropertyForm({ property }: EditPropertyFormProps) {
 
       const result = await updateProperty({
         id: property.id,
-        ...formData,
+        name: formData.name,
+        slug: formData.slug,
+        city: formData.city,
+        country: formData.country,
+        addressShort: formData.addressShort,
+        description: formData.description,
+        propertyType: formData.propertyType as PropertyType,
+        shortletModel: formData.shortletModel as ShortletModel,
+        status: formData.status as PropertyStatus,
         totalShares: parseInt(formData.totalShares),
         pricePerShare: parseFloat(formData.pricePerShare),
         minShares: parseInt(formData.minShares),
@@ -94,6 +103,7 @@ export function EditPropertyForm({ property }: EditPropertyFormProps) {
         projectedAnnualYieldPct: parseFloat(formData.projectedAnnualYieldPct),
         highlights: highlightsArray,
         gallery: galleryArray,
+        coverImage: formData.coverImage || undefined,
       });
 
       if (!result.success) {
