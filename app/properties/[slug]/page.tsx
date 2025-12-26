@@ -13,9 +13,9 @@ import { ProductSchema } from "@/components/seo/json-ld";
 import { OnboardingBanner } from "@/components/onboarding/onboarding-banner";
 import { ChartCard } from "@/components/ui/chart-card";
 import { ChartLoading } from "@/components/ui/chart-loading";
-import dynamic from "next/dynamic";
+import dynamicImport from "next/dynamic";
 
-const HistoricalIncomeChart = dynamic(
+const HistoricalIncomeChart = dynamicImport(
   () => import("@/components/properties/historical-income-chart").then((mod) => ({ default: mod.HistoricalIncomeChart })),
   { 
     loading: () => <ChartLoading />,

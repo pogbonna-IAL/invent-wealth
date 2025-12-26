@@ -7,11 +7,11 @@ import { AppLayout } from "@/components/layout/app-layout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { RentalStatementsList } from "@/components/statements/rental-statements-list";
-import dynamic from "next/dynamic";
+import dynamicImport from "next/dynamic";
 
 import { ChartLoading } from "@/components/ui/chart-loading";
 
-const OccupancyADRChart = dynamic(
+const OccupancyADRChart = dynamicImport(
   () => import("@/components/statements/occupancy-adr-chart").then((mod) => ({ default: mod.OccupancyADRChart })),
   { 
     loading: () => <ChartLoading />,
