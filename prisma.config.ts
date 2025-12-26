@@ -5,6 +5,11 @@
 import "dotenv/config";
 import { defineConfig } from "prisma/config";
 
+// Log immediately when module loads to verify it's being executed
+console.log("[Prisma Config] Module loading...");
+console.log("[Prisma Config] DATABASE_URL at load time:", process.env.DATABASE_URL ? process.env.DATABASE_URL.substring(0, 30) + "..." : "NOT FOUND");
+console.log("[Prisma Config] All DATABASE/DB env vars:", Object.keys(process.env).filter(k => k.includes("DATABASE") || k.includes("DB")).join(", ") || "none");
+
 // Get DATABASE_URL from environment
 // Railway injects this when services are linked
 // Read it directly - it should be available when Prisma CLI runs
