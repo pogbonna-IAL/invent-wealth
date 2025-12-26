@@ -152,6 +152,18 @@ export class PropertyService {
             periodStart: "desc",
           },
           take: 12, // Last 12 months
+          include: {
+            distributions: {
+              select: {
+                id: true,
+                status: true,
+              },
+              orderBy: {
+                createdAt: "desc",
+              },
+              take: 1, // Just get the latest one
+            },
+          },
         },
         documents: {
           where: {
