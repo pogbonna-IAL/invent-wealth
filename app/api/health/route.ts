@@ -3,6 +3,19 @@ import { prisma } from "@/server/db/prisma";
 
 export async function GET() {
   try {
+    // Check if DATABASE_URL is set
+    if (!process.env.DATABASE_URL) {
+      return NextResponse.json(
+        {
+          status: "unhealthy",
+          timestamp: new Date().toISOString(),
+          database: "not_configured",
+          error: "DATABASE_URL environment variable is not set",
+        },
+        { status: 503 }
+      );
+    }
+
     // Check database connection
     await prisma.$queryRaw`SELECT 1`;
     
