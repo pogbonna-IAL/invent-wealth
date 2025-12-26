@@ -48,4 +48,5 @@ docs/
 # Scripts (keep only essential)
 scripts/
 !scripts/docker-entrypoint.sh
+!scripts/wait-and-migrate.sh
 
