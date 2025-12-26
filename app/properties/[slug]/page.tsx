@@ -135,12 +135,17 @@ export default async function PropertyDetailPage({
         if (property.gallery) {
           if (typeof property.gallery === 'string') {
             try {
-              galleryArray = JSON.parse(property.gallery);
+              const parsed = JSON.parse(property.gallery);
+              // Validate parsed result is an array of strings
+              if (Array.isArray(parsed)) {
+                galleryArray = parsed.filter((item): item is string => typeof item === 'string');
+              }
             } catch {
               galleryArray = [];
             }
           } else if (Array.isArray(property.gallery)) {
-            galleryArray = property.gallery;
+            // Filter to ensure all items are strings and not null
+            galleryArray = property.gallery.filter((item): item is string => typeof item === 'string' && item !== null);
           }
         }
 
