@@ -1,0 +1,62 @@
+{
+  "hero": {
+    "title": "Fractional Property Ownership",
+    "subtitle": "Made Simple",
+    "description": "Invest in premium properties with as little as ₦600,000 ($400). Own shares, earn passive income from shortlet rentals, and build wealth through real estate.",
+    "cta": {
+      "primary": "Browse Properties",
+      "secondary": "Get Started"
+    }
+  },
+  "features": {
+    "title": "Why Choose InventWealth?",
+    "items": [
+      {
+        "title": "Fractional Ownership",
+        "description": "Own a piece of premium properties without the full investment",
+        "content": "Start investing with as little as ₦600,000 ($400). No need for large capital or property management hassles."
+      },
+      {
+        "title": "Passive Income",
+        "description": "Earn monthly distributions from shortlet rental income",
+        "content": "Receive monthly distributions based on your share ownership. Track your income earned in real-time."
+      },
+      {
+        "title": "Transparent & Secure",
+        "description": "Full transparency with detailed income statements and documents",
+        "content": "Access all property documents, income statements, fees, and distribution history. Full transparency on occupancy, costs, and net distributable income."
+      }
+    ]
+  },
+  "howItWorks": {
+    "title": "How It Works",
+    "steps": [
+      {
+        "number": 1,
+        "title": "Browse Properties",
+        "description": "Explore curated premium properties available for fractional ownership"
+      },
+      {
+        "number": 2,
+        "title": "Invest in Shares",
+        "description": "Purchase shares at the listed price. Minimum investment varies by property"
+      },
+      {
+        "number": 3,
+        "title": "Earn Income",
+        "description": "Receive monthly distributions from shortlet rental income proportional to your shares"
+      },
+      {
+        "number": 4,
+        "title": "Track Performance",
+        "description": "Monitor your portfolio, income, and property performance through your dashboard"
+      }
+    ]
+  },
+  "cta": {
+    "title": "Ready to Start Investing?",
+    "description": "Start from as little as ₦600,000 ($400). Join investors earning monthly rental income through fractional property ownership.",
+    "button": "Get Started Today"
+  }
+}
+

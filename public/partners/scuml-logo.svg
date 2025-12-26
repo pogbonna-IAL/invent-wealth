@@ -1,0 +1,15 @@
+<svg width="240" height="120" viewBox="0 0 240 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- SCUML Logo Placeholder - Replace with official logo -->
+  <rect width="240" height="120" fill="white" rx="8"/>
+  <rect x="1" y="1" width="238" height="118" fill="none" stroke="#253E8D" stroke-width="2" rx="7"/>
+  
+  <!-- SCUML Text -->
+  <text x="120" y="45" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#253E8D" text-anchor="middle">SCUML</text>
+  <text x="120" y="65" font-family="Arial, sans-serif" font-size="10" fill="#666" text-anchor="middle">Special Control Unit</text>
+  <text x="120" y="78" font-family="Arial, sans-serif" font-size="10" fill="#666" text-anchor="middle">Against Money Laundering</text>
+  
+  <!-- Shield Icon -->
+  <path d="M 120 20 L 105 25 L 105 40 Q 105 50 110 55 Q 115 60 120 65 Q 125 60 130 55 Q 135 50 135 40 L 135 25 Z" fill="#253E8D" opacity="0.2"/>
+  <path d="M 120 25 L 110 28 L 110 38 Q 110 44 113 47 Q 116 50 120 52 Q 124 50 127 47 Q 130 44 130 38 L 130 28 Z" fill="#253E8D"/>
+</svg>
+

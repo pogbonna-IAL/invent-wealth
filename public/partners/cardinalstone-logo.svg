@@ -1,0 +1,14 @@
+<svg width="240" height="120" viewBox="0 0 240 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- CardinalStone Logo Placeholder - Replace with official logo -->
+  <rect width="240" height="120" fill="white" rx="8"/>
+  <rect x="1" y="1" width="238" height="118" fill="none" stroke="#253E8D" stroke-width="2" rx="7"/>
+  
+  <!-- CardinalStone Text -->
+  <text x="120" y="50" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#253E8D" text-anchor="middle">CardinalStone</text>
+  <text x="120" y="70" font-family="Arial, sans-serif" font-size="14" font-weight="600" fill="#253E8D" text-anchor="middle">TRUSTEES</text>
+  
+  <!-- Stone/Cardinal Icon (Simplified) -->
+  <circle cx="120" cy="30" r="8" fill="#253E8D" opacity="0.3"/>
+  <path d="M 120 22 L 115 30 L 120 38 L 125 30 Z" fill="#253E8D"/>
+</svg>
+

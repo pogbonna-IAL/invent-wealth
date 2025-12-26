@@ -1,0 +1,19 @@
+<svg width="200" height="80" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
+  <!-- Interlocking diamond symbol -->
+  <g transform="translate(100, 25)">
+    <!-- Left blue diamond (behind) -->
+    <path d="M -30 -15 L -15 -30 L 0 -15 L -15 0 Z" fill="#253E8D" />
+    <!-- Right blue diamond (behind) -->
+    <path d="M 0 -15 L 15 -30 L 30 -15 L 15 0 Z" fill="#253E8D" />
+    <!-- Orange diamond top part (overlapping left blue) -->
+    <path d="M -15 -30 L 0 -45 L 15 -30 L 0 -15 Z" fill="#F58220" />
+    <!-- Orange diamond bottom part (overlapping right blue) -->
+    <path d="M -15 0 L 0 15 L 15 0 L 0 -15 Z" fill="#F58220" />
+  </g>
+  
+  <!-- INVENT ALLIANCE text -->
+  <text x="100" y="60" font-family="Arial, sans-serif" font-size="12" font-weight="600" fill="#253E8D" text-anchor="middle" letter-spacing="3px">
+    <tspan x="100" dy="0">INVENT</tspan>
+    <tspan x="100" dy="16">ALLIANCE</tspan>
+  </text>
+</svg>

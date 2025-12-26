@@ -1,0 +1,77 @@
+{
+  "categories": [
+    {
+      "name": "General",
+      "questions": [
+        {
+          "q": "What is fractional property ownership?",
+          "a": "Fractional property ownership allows multiple investors to own shares in a single property. Instead of buying an entire property, you purchase shares and become a partial owner. This makes real estate investment accessible with lower capital requirements while still allowing you to benefit from property appreciation and rental income."
+        },
+        {
+          "q": "How does InventWealth work?",
+          "a": "InventWealth connects investors with premium properties available for fractional ownership. You browse properties, purchase shares at a set price per share, and become a fractional owner. Properties generate income through short-term rentals, and you receive monthly distributions proportional to your share ownership."
+        },
+        {
+          "q": "What is the minimum investment?",
+          "a": "Minimum investment amounts vary by property. Each property listing shows the minimum number of shares required to invest. This makes fractional ownership accessible to investors with different budget levels."
+        },
+        {
+          "q": "Can I sell my shares?",
+          "a": "Currently, shares are designed as long-term investments. We are working on developing a secondary market for share trading. Please check our terms of service for the most current information on share transferability."
+        }
+      ]
+    },
+    {
+      "name": "Investments & Returns",
+      "questions": [
+        {
+          "q": "How are distributions calculated?",
+          "a": "Distributions are calculated monthly. We take the gross rental revenue, subtract operating costs and management fees to get the net distributable income. This amount is then divided proportionally among all shareholders based on their share ownership percentage. For example, if you own 1% of shares, you receive 1% of the net income."
+        },
+        {
+          "q": "How often will I receive distributions?",
+          "a": "Distributions are processed monthly, typically within 5-7 business days after the end of each rental period. You'll receive detailed income statements showing the breakdown of revenue, costs, and your distribution amount."
+        },
+        {
+          "q": "What returns can I expect?",
+          "a": "Returns vary based on property performance, market conditions, and occupancy rates. Each property listing shows a projected annual yield percentage, but this is an estimate based on current market conditions and is not a guarantee. Actual returns may be higher or lower. Past performance does not guarantee future results."
+        },
+        {
+          "q": "Are there any guarantees?",
+          "a": "No. All investments carry risk, and there are no guarantees of returns. Property values can fluctuate, rental income may vary, and you may lose some or all of your investment. Please only invest what you can afford to lose and consider seeking advice from a qualified financial advisor."
+        }
+      ]
+    },
+    {
+      "name": "Properties & Management",
+      "questions": [
+        {
+          "q": "How are properties selected?",
+          "a": "We carefully vet all properties before making them available for investment. Our selection criteria include location, property condition, rental potential, and market fundamentals. All properties undergo thorough due diligence."
+        },
+        {
+          "q": "Who manages the properties?",
+          "a": "Properties are managed by professional property management companies with experience in short-term rentals. They handle day-to-day operations, maintenance, guest relations, and ensure properties meet quality standards."
+        },
+        {
+          "q": "Can I visit the properties?",
+          "a": "As a fractional owner, you may have opportunities to visit properties subject to availability and property management policies. Please contact support for more information about property visits."
+        }
+      ]
+    },
+    {
+      "name": "Security & Trust",
+      "questions": [
+        {
+          "q": "How is my investment protected?",
+          "a": "Investor funds are held in segregated accounts separate from company operating funds. We follow industry best practices for fund custody and security. However, please note that all investments carry risk, and your capital is not guaranteed or insured by any government agency."
+        },
+        {
+          "q": "What happens if a property underperforms?",
+          "a": "Property performance can vary based on market conditions. If a property underperforms, distributions may be lower or temporarily suspended. Property values may also fluctuate. We provide transparent reporting on all property performance metrics."
+        }
+      ]
+    }
+  ]
+}
+

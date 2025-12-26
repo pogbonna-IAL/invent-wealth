@@ -1,0 +1,454 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+}
+
+:root {
+  --radius: 0.75rem;
+  /* Invent Alliance Brand Colors - Exact from Logo */
+  /* Deep Blue #253E8D - Primary brand color */
+  /* Vibrant Orange #F58220 - Accent color */
+  /* Neutral Gray #939598 - Supporting colors */
+  
+  /* Brand color definitions */
+  --brand-blue: #253E8D;
+  --brand-orange: #F58220;
+  --brand-gray: #939598;
+  
+  /* Backgrounds - Warmer, richer whites */
+  --background: oklch(0.995 0.002 60);
+  --foreground: oklch(0.12 0.015 260);
+  
+  /* Cards - Subtle blue tint for richness */
+  --card: oklch(1 0.002 260);
+  --card-foreground: oklch(0.12 0.015 260);
+  
+  --popover: oklch(1 0.002 260);
+  --popover-foreground: oklch(0.12 0.015 260);
+  
+  /* Primary: Deep Blue #253E8D - Exact brand color */
+  --primary: oklch(0.348 0.125 260);
+  --primary-foreground: oklch(0.99 0 0);
+  --primary-hover: oklch(0.32 0.135 260);
+  --primary-light: oklch(0.45 0.10 260);
+  --primary-lighter: oklch(0.65 0.08 260);
+  
+  /* Secondary: Blue-tinted gray for cohesion */
+  --secondary: oklch(0.96 0.008 260);
+  --secondary-foreground: oklch(0.25 0.02 260);
+  --secondary-hover: oklch(0.94 0.01 260);
+  
+  /* Muted: Neutral with subtle warmth */
+  --muted: oklch(0.97 0.003 60);
+  --muted-foreground: oklch(0.48 0.008 260);
+  
+  /* Accent: Vibrant Orange #F58220 - Exact brand color */
+  --accent: oklch(0.648 0.152 55);
+  --accent-foreground: oklch(0.99 0 0);
+  --accent-hover: oklch(0.62 0.165 55);
+  --accent-light: oklch(0.75 0.12 55);
+  --accent-lighter: oklch(0.85 0.08 55);
+  
+  --destructive: oklch(0.577 0.245 27.325);
+  
+  /* Borders - Subtle blue tint */
+  --border: oklch(0.88 0.01 260);
+  --input: oklch(0.94 0.008 260);
+  --ring: oklch(0.348 0.125 260);
+  
+  /* Chart colors - Brand-focused palette */
+  --chart-1: oklch(0.348 0.125 260); /* Deep Blue */
+  --chart-2: oklch(0.648 0.152 55); /* Vibrant Orange */
+  --chart-3: oklch(0.50 0.12 200); /* Teal-blue */
+  --chart-4: oklch(0.60 0.13 320); /* Purple-blue */
+  --chart-5: oklch(0.55 0.11 120); /* Green-blue */
+  
+  /* Sidebar - Rich blue-tinted background */
+  --sidebar: oklch(0.985 0.005 260);
+  --sidebar-foreground: oklch(0.12 0.015 260);
+  --sidebar-primary: oklch(0.348 0.125 260);
+  --sidebar-primary-foreground: oklch(0.99 0 0);
+  --sidebar-accent: oklch(0.96 0.008 260);
+  --sidebar-accent-foreground: oklch(0.25 0.02 260);
+  --sidebar-border: oklch(0.88 0.01 260);
+  --sidebar-ring: oklch(0.348 0.125 260);
+}
+
+.dark {
+  /* Dark mode - Rich, deep backgrounds with brand color accents */
+  --background: oklch(0.10 0.012 260);
+  --foreground: oklch(0.98 0.002 0);
+  
+  --card: oklch(0.16 0.015 260);
+  --card-foreground: oklch(0.98 0.002 0);
+  
+  --popover: oklch(0.16 0.015 260);
+  --popover-foreground: oklch(0.98 0.002 0);
+  
+  /* Primary: Lighter, more vibrant blue for dark mode */
+  --primary: oklch(0.58 0.14 260);
+  --primary-foreground: oklch(0.10 0.012 260);
+  --primary-hover: oklch(0.62 0.15 260);
+  --primary-light: oklch(0.50 0.12 260);
+  --primary-lighter: oklch(0.40 0.10 260);
+  
+  --secondary: oklch(0.22 0.012 260);
+  --secondary-foreground: oklch(0.98 0.002 0);
+  --secondary-hover: oklch(0.25 0.015 260);
+  
+  --muted: oklch(0.20 0.01 260);
+  --muted-foreground: oklch(0.68 0.008 260);
+  
+  /* Accent: Brighter orange for dark mode visibility */
+  --accent: oklch(0.72 0.17 55);
+  --accent-foreground: oklch(0.10 0.012 260);
+  --accent-hover: oklch(0.75 0.18 55);
+  --accent-light: oklch(0.78 0.14 55);
+  --accent-lighter: oklch(0.82 0.10 55);
+  
+  --destructive: oklch(0.704 0.191 22.216);
+  
+  --border: oklch(0.25 0.012 260 / 60%);
+  --input: oklch(0.22 0.012 260 / 70%);
+  --ring: oklch(0.58 0.14 260);
+  
+  /* Chart colors - Enhanced for dark mode */
+  --chart-1: oklch(0.58 0.14 260); /* Deep Blue */
+  --chart-2: oklch(0.72 0.17 55); /* Vibrant Orange */
+  --chart-3: oklch(0.62 0.13 200); /* Teal-blue */
+  --chart-4: oklch(0.67 0.14 320); /* Purple-blue */
+  --chart-5: oklch(0.64 0.12 120); /* Green-blue */
+  
+  --sidebar: oklch(0.13 0.012 260);
+  --sidebar-foreground: oklch(0.98 0.002 0);
+  --sidebar-primary: oklch(0.58 0.14 260);
+  --sidebar-primary-foreground: oklch(0.10 0.012 260);
+  --sidebar-accent: oklch(0.22 0.012 260);
+  --sidebar-accent-foreground: oklch(0.98 0.002 0);
+  --sidebar-border: oklch(0.25 0.012 260 / 60%);
+  --sidebar-ring: oklch(0.58 0.14 260);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1, "ss02" 1;
+    letter-spacing: -0.011em;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply tracking-tight font-bold;
+    letter-spacing: -0.03em;
+    font-weight: 700;
+    text-rendering: optimizeLegibility;
+  }
+  h1 {
+    @apply text-4xl md:text-5xl lg:text-6xl;
+    letter-spacing: -0.04em;
+    font-weight: 800;
+    line-height: 1.05;
+    text-shadow: 0 1px 2px oklch(0.12 0.015 260 / 0.05);
+  }
+  h2 {
+    @apply text-3xl md:text-4xl lg:text-5xl;
+    letter-spacing: -0.035em;
+    font-weight: 700;
+    line-height: 1.15;
+    text-shadow: 0 1px 2px oklch(0.12 0.015 260 / 0.04);
+  }
+  h3 {
+    @apply text-2xl md:text-3xl lg:text-4xl;
+    letter-spacing: -0.03em;
+    font-weight: 700;
+    line-height: 1.25;
+  }
+  h4 {
+    @apply text-xl md:text-2xl;
+    letter-spacing: -0.025em;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  h5 {
+    @apply text-lg md:text-xl;
+    letter-spacing: -0.02em;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+  h6 {
+    @apply text-base md:text-lg;
+    letter-spacing: -0.015em;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+  p {
+    line-height: 1.8;
+    letter-spacing: -0.003em;
+    font-weight: 400;
+  }
+  strong, b {
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  em {
+    font-style: italic;
+  }
+  
+  /* Enhanced gradient utilities using exact brand colors */
+  .gradient-primary {
+    background: linear-gradient(135deg, oklch(0.348 0.125 260) 0%, oklch(0.40 0.14 270) 100%);
+  }
+  
+  .gradient-accent {
+    background: linear-gradient(135deg, oklch(0.648 0.152 55) 0%, oklch(0.70 0.18 60) 100%);
+  }
+  
+  .gradient-brand {
+    background: linear-gradient(135deg, oklch(0.348 0.125 260) 0%, oklch(0.648 0.152 55) 100%);
+  }
+  
+  .gradient-brand-soft {
+    background: linear-gradient(135deg, oklch(0.348 0.125 260 / 0.1) 0%, oklch(0.648 0.152 55 / 0.1) 100%);
+  }
+  
+  .gradient-blue {
+    background: linear-gradient(135deg, oklch(0.348 0.125 260) 0%, oklch(0.45 0.10 260) 100%);
+  }
+  
+  .gradient-orange {
+    background: linear-gradient(135deg, oklch(0.648 0.152 55) 0%, oklch(0.75 0.12 55) 100%);
+  }
+  
+  /* Enhanced shadows with brand colors */
+  .shadow-brand {
+    box-shadow: 0 4px 20px -2px oklch(0.348 0.125 260 / 0.18), 0 2px 8px -2px oklch(0.348 0.125 260 / 0.1);
+  }
+  
+  .shadow-accent {
+    box-shadow: 0 4px 20px -2px oklch(0.648 0.152 55 / 0.25), 0 2px 8px -2px oklch(0.648 0.152 55 / 0.15);
+  }
+  
+  .shadow-brand-lg {
+    box-shadow: 0 8px 32px -4px oklch(0.348 0.125 260 / 0.2), 0 4px 16px -4px oklch(0.348 0.125 260 / 0.12);
+  }
+  
+  /* Brand color text utilities */
+  .text-brand-blue {
+    color: oklch(0.348 0.125 260);
+  }
+  
+  .text-brand-orange {
+    color: oklch(0.648 0.152 55);
+  }
+  
+  /* Brand color background utilities */
+  .bg-brand-blue {
+    background-color: oklch(0.348 0.125 260);
+  }
+  
+  .bg-brand-orange {
+    background-color: oklch(0.648 0.152 55);
+  }
+  
+  /* Subtle brand color backgrounds */
+  .bg-brand-blue-soft {
+    background-color: oklch(0.348 0.125 260 / 0.08);
+  }
+  
+  .bg-brand-orange-soft {
+    background-color: oklch(0.648 0.152 55 / 0.1);
+  }
+  
+  /* Border utilities with brand colors */
+  .border-brand-blue {
+    border-color: oklch(0.348 0.125 260);
+  }
+  
+  .border-brand-orange {
+    border-color: oklch(0.648 0.152 55);
+  }
+  
+  /* Rich text utilities */
+  .text-rich {
+    text-shadow: 0 1px 2px oklch(0.12 0.015 260 / 0.08), 0 0 1px oklch(0.12 0.015 260 / 0.04);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  
+  .text-rich-lg {
+    text-shadow: 0 2px 4px oklch(0.12 0.015 260 / 0.1), 0 1px 2px oklch(0.12 0.015 260 / 0.05);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  
+  .text-rich-xl {
+    text-shadow: 0 3px 6px oklch(0.12 0.015 260 / 0.12), 0 1px 3px oklch(0.12 0.015 260 / 0.06);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+  }
+  
+  /* Gradient text with richer shadows */
+  .text-gradient-rich {
+    background: linear-gradient(135deg, oklch(0.348 0.125 260) 0%, oklch(0.648 0.152 55) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 2px 4px oklch(0.348 0.125 260 / 0.15);
+    font-weight: 700;
+  }
+  
+  .text-gradient-primary {
+    background: linear-gradient(135deg, oklch(0.348 0.125 260) 0%, oklch(0.40 0.14 270) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+  }
+  
+  .text-gradient-accent {
+    background: linear-gradient(135deg, oklch(0.648 0.152 55) 0%, oklch(0.70 0.18 60) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+  }
+  
+  /* Enhanced text colors with depth */
+  .text-foreground-rich {
+    color: oklch(0.10 0.018 260);
+    text-shadow: 0 1px 2px oklch(0.10 0.018 260 / 0.06);
+  }
+  
+  .text-muted-rich {
+    color: oklch(0.45 0.012 260);
+    font-weight: 500;
+  }
+  
+  /* Premium number/stat display */
+  .text-stat {
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    text-shadow: 0 2px 4px oklch(0.12 0.015 260 / 0.1);
+    line-height: 1;
+  }
+  
+  .text-stat-lg {
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    text-shadow: 0 3px 6px oklch(0.12 0.015 260 / 0.12);
+    line-height: 1;
+  }
+  
+  /* Rich link styling */
+  a {
+    font-weight: 500;
+    transition: all 0.2s ease;
+  }
+  
+  a:hover {
+    text-shadow: 0 1px 2px currentColor / 0.1;
+  }
+  
+  /* Hide scrollbar utility */
+  .scrollbar-hide {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari and Opera */
+  }
+
+  /* Mobile App Enhancements */
+  
+  /* Prevent zoom on input focus (iOS Safari) */
+  @supports (-webkit-touch-callout: none) {
+    input,
+    textarea,
+    select {
+      font-size: 16px !important;
+    }
+  }
+
+  /* Safe area insets for notched devices */
+  .safe-area-inset-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .safe-area-inset-top {
+    padding-top: env(safe-area-inset-top);
+  }
+
+  /* Mobile app-like scroll behavior */
+  @media (max-width: 768px) {
+    html {
+      -webkit-overflow-scrolling: touch;
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      overscroll-behavior-y: contain;
+      /* Prevent pull-to-refresh on iOS (can be enabled per-page if needed) */
+      overscroll-behavior: contain;
+    }
+  }
+
+  /* Touch-friendly minimum sizes */
+  @media (max-width: 768px) {
+    button,
+    a[role="button"],
+    input[type="button"],
+    input[type="submit"] {
+      min-height: 44px;
+      min-width: 44px;
+    }
+  }
+}

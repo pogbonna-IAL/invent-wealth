@@ -1,0 +1,36 @@
+{
+  "title": "About InventWealth",
+  "subtitle": "Democratizing real estate investment through fractional ownership",
+  "mission": {
+    "title": "Our Mission",
+    "content": [
+      "InventWealth was founded with a simple mission: to make real estate investment accessible to everyone, regardless of their budget or experience level. We believe that everyone should have the opportunity to build wealth through real estate ownership and benefit from passive income.",
+      "Through fractional property ownership, we're breaking down the traditional barriers to real estate investment. No longer do you need hundreds of thousands of dollars or extensive property management knowledge to invest in premium properties and earn rental income."
+    ]
+  },
+  "whatWeDo": {
+    "title": "What We Do",
+    "content": [
+      "InventWealth is a fractional property ownership platform that connects investors with premium real estate opportunities. We acquire high-quality properties in prime locations, divide them into shares, and enable investors to purchase fractional ownership.",
+      "Our properties are managed professionally and generate income through short-term rentals. This rental income is distributed monthly to all shareholders proportionally based on their share ownership."
+    ]
+  },
+  "values": {
+    "title": "Our Values",
+    "items": [
+      {
+        "title": "Transparency",
+        "description": "We believe in complete transparency. All property performance data, fees, and income statements are available to investors."
+      },
+      {
+        "title": "Accessibility",
+        "description": "We make real estate investment accessible to everyone, regardless of their investment amount or experience level."
+      },
+      {
+        "title": "Security",
+        "description": "Your investments are secure. We follow industry best practices and maintain proper legal structures for all properties."
+      }
+    ]
+  }
+}
+

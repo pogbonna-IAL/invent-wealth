@@ -1,0 +1,19 @@
+<svg width="240" height="120" viewBox="0 0 240 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- REDAN Logo Placeholder - Replace with official logo -->
+  <rect width="240" height="120" fill="white" rx="8"/>
+  <rect x="1" y="1" width="238" height="118" fill="none" stroke="#253E8D" stroke-width="2" rx="7"/>
+  
+  <!-- REDAN Text -->
+  <text x="120" y="45" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#253E8D" text-anchor="middle">REDAN</text>
+  <text x="120" y="65" font-family="Arial, sans-serif" font-size="10" fill="#666" text-anchor="middle">Real Estate Developers</text>
+  <text x="120" y="78" font-family="Arial, sans-serif" font-size="10" fill="#666" text-anchor="middle">Association of Nigeria</text>
+  
+  <!-- Building/Development Icon -->
+  <rect x="108" y="22" width="24" height="18" fill="#F58220" opacity="0.2" rx="2"/>
+  <path d="M 108 22 L 120 18 L 132 22 L 132 40 L 108 40 Z" fill="#F58220"/>
+  <rect x="112" y="26" width="5" height="5" fill="white"/>
+  <rect x="123" y="26" width="5" height="5" fill="white"/>
+  <rect x="112" y="33" width="5" height="5" fill="white"/>
+  <rect x="123" y="33" width="5" height="5" fill="white"/>
+</svg>
+

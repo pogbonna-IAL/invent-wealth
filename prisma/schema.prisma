@@ -1,0 +1,441 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// NextAuth models
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// Core User Model
+model User {
+  id            String    @id @default(cuid())
+  email         String?   @unique
+  name          String?
+  role          UserRole  @default(INVESTOR)
+  emailVerified DateTime?
+  image         String?
+  passwordHash  String?   // Optional - only for users who set passwords
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  accounts              Account[]
+  sessions              Session[]
+  profile               Profile?
+  onboarding            Onboarding?
+  investments           Investment[]
+  payouts               Payout[]
+  transactions          Transaction[]
+  documents             Document[]
+  auditLogs             AuditLog[]
+  referralCode          ReferralCode?
+  referredBy            ReferralSignup?  @relation("ReferredUser")
+  approvedDistributions Distribution[]   @relation("DistributionApprover")
+  payoutAuditLogs       PayoutAuditLog[] @relation("PayoutAuditChanger")
+  pushSubscriptions     PushSubscription[]
+
+  @@index([email])
+  @@index([role])
+}
+
+enum UserRole {
+  INVESTOR
+  ADMIN
+}
+
+// Profile Model
+model Profile {
+  id        String    @id @default(cuid())
+  userId    String    @unique
+  phone     String?
+  address   String?
+  country   String?
+  dob       DateTime? // Date of birth
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// Onboarding Model
+model Onboarding {
+  id          String           @id @default(cuid())
+  userId      String           @unique
+  status      OnboardingStatus @default(PENDING)
+  riskAnswers Json? // Risk assessment answers
+  kycStatus   KycStatus        @default(PENDING)
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+enum OnboardingStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+}
+
+enum KycStatus {
+  PENDING
+  IN_REVIEW
+  APPROVED
+  REJECTED
+}
+
+// Properties & Funding
+model Property {
+  id                      String         @id @default(cuid())
+  slug                    String         @unique
+  name                    String
+  city                    String
+  country                 String
+  addressShort            String
+  description             String         @db.Text
+  highlights              Json? // Array of highlight strings
+  coverImage              String?
+  gallery                 Json? // Array of image URLs
+  propertyType            PropertyType
+  shortletModel           ShortletModel
+  totalShares             Int
+  availableShares         Int
+  pricePerShare           Decimal        @db.Decimal(10, 2)
+  minShares               Int
+  targetRaise             Decimal        @db.Decimal(12, 2)
+  status                  PropertyStatus @default(OPEN)
+  projectedAnnualYieldPct Decimal        @db.Decimal(5, 2) // e.g., 8.50 for 8.5%
+  createdAt               DateTime       @default(now())
+  updatedAt               DateTime       @updatedAt
+
+  investments      Investment[]
+  rentalStatements RentalStatement[]
+  distributions    Distribution[]
+  documents        Document[]
+  payouts          Payout[]
+
+  @@index([slug])
+  @@index([status])
+  @@index([city, country])
+}
+
+enum PropertyType {
+  APARTMENT
+  VILLA
+  STUDIO
+  HOUSE
+  CONDO
+  TOWNHOUSE
+}
+
+enum ShortletModel {
+  ENTIRE_HOME
+  PRIVATE_ROOM
+}
+
+enum PropertyStatus {
+  OPEN
+  FUNDED
+  CLOSED
+}
+
+// Investments (Shares)
+model Investment {
+  id                      String           @id @default(cuid())
+  userId                  String
+  propertyId              String
+  shares                  Int
+  pricePerShareAtPurchase Decimal          @db.Decimal(10, 2)
+  totalAmount             Decimal          @db.Decimal(12, 2)
+  status                  InvestmentStatus @default(PENDING)
+  createdAt               DateTime         @default(now())
+  updatedAt               DateTime         @updatedAt
+
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  property Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([propertyId])
+  @@index([status])
+  @@index([createdAt])
+}
+
+enum InvestmentStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+}
+
+// Rental Performance & Distributions
+model RentalStatement {
+  id                 String   @id @default(cuid())
+  propertyId         String
+  periodStart        DateTime
+  periodEnd          DateTime
+  grossRevenue       Decimal  @db.Decimal(12, 2)
+  operatingCosts     Decimal  @db.Decimal(12, 2)
+  operatingCostItems Json? // Array of { description: string, amount: number }
+  managementFee      Decimal  @db.Decimal(12, 2)
+  incomeAdjustment   Decimal  @default(0) @db.Decimal(12, 2) // Can be positive or negative for unforeseen events
+  netDistributable   Decimal  @db.Decimal(12, 2)
+  occupancyRatePct   Decimal  @db.Decimal(5, 2) // e.g., 75.50 for 75.5%
+  adr                Decimal  @db.Decimal(10, 2) // Average Daily Rate
+  notes              String?  @db.Text
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  property      Property       @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  distributions Distribution[]
+  payouts       Payout[]
+
+  @@index([propertyId])
+  @@index([periodStart, periodEnd])
+}
+
+model Distribution {
+  id                String             @id @default(cuid())
+  propertyId        String
+  rentalStatementId String
+  declaredAt        DateTime?
+  totalDistributed  Decimal            @db.Decimal(12, 2)
+  status            DistributionStatus @default(DRAFT)
+  approvedBy        String?
+  approvedAt        DateTime?
+  notes             String?            @db.Text
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+
+  property        Property        @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  rentalStatement RentalStatement @relation(fields: [rentalStatementId], references: [id], onDelete: Cascade)
+  payouts         Payout[]
+  approver        User?           @relation("DistributionApprover", fields: [approvedBy], references: [id])
+
+  @@index([propertyId])
+  @@index([rentalStatementId])
+  @@index([status])
+}
+
+enum DistributionStatus {
+  DRAFT
+  PENDING_APPROVAL
+  APPROVED
+  DECLARED
+  PAID
+}
+
+model Payout {
+  id                String         @id @default(cuid())
+  userId            String
+  propertyId        String
+  distributionId    String
+  rentalStatementId String
+  sharesAtRecord    Int
+  amount            Decimal        @db.Decimal(12, 2)
+  status            PayoutStatus   @default(PENDING)
+  paidAt            DateTime?
+  paymentMethod     PaymentMethod?
+  paymentReference  String?
+  bankAccount       String?
+  notes             String?        @db.Text
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+
+  user            User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  property        Property         @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  distribution    Distribution     @relation(fields: [distributionId], references: [id], onDelete: Cascade)
+  rentalStatement RentalStatement  @relation(fields: [rentalStatementId], references: [id], onDelete: Cascade)
+  auditLogs       PayoutAuditLog[]
+
+  @@index([userId])
+  @@index([propertyId])
+  @@index([distributionId])
+  @@index([status])
+  @@index([paymentMethod])
+}
+
+enum PayoutStatus {
+  PENDING
+  PENDING_APPROVAL
+  APPROVED
+  PAID
+}
+
+enum PaymentMethod {
+  WALLET
+  BANK_TRANSFER
+  CHECK
+  WIRE_TRANSFER
+  MOBILE_MONEY
+  CASH
+  OTHER
+}
+
+model PayoutAuditLog {
+  id        String   @id @default(cuid())
+  payoutId  String
+  changedBy String
+  action    String // e.g., "AMOUNT_ADJUSTED", "STATUS_CHANGED", "PAYMENT_METHOD_UPDATED"
+  oldValue  Json?
+  newValue  Json?
+  reason    String?  @db.Text
+  createdAt DateTime @default(now())
+
+  payout  Payout @relation(fields: [payoutId], references: [id], onDelete: Cascade)
+  changer User   @relation("PayoutAuditChanger", fields: [changedBy], references: [id])
+
+  @@index([payoutId])
+  @@index([changedBy])
+  @@index([createdAt])
+}
+
+// Transactions & Docs
+model Transaction {
+  id        String          @id @default(cuid())
+  userId    String
+  type      TransactionType
+  amount    Decimal         @db.Decimal(12, 2)
+  currency  String          @default("NGN")
+  reference String?
+  createdAt DateTime        @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([type])
+  @@index([createdAt])
+}
+
+enum TransactionType {
+  INVESTMENT
+  PAYOUT
+  FEE
+  REFUND
+}
+
+model Document {
+  id         String        @id @default(cuid())
+  scope      DocumentScope
+  userId     String?
+  propertyId String?
+  title      String
+  url        String
+  docType    DocumentType
+  createdAt  DateTime      @default(now())
+
+  user     User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  property Property? @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+
+  @@index([scope])
+  @@index([userId])
+  @@index([propertyId])
+  @@index([docType])
+}
+
+enum DocumentScope {
+  GLOBAL
+  PROPERTY
+  USER
+}
+
+enum DocumentType {
+  AGREEMENT
+  PROSPECTUS
+  REPORT
+  STATEMENT
+}
+
+// Admin & Security
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  action    String
+  metadata  Json?
+  createdAt DateTime @default(now())
+
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([action])
+  @@index([createdAt])
+}
+
+// Referral System (Optional)
+model ReferralCode {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  code      String   @unique
+  createdAt DateTime @default(now())
+
+  user    User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  signups ReferralSignup[]
+
+  @@index([code])
+}
+
+model ReferralSignup {
+  id        String   @id @default(cuid())
+  codeId    String
+  newUserId String   @unique
+  createdAt DateTime @default(now())
+
+  code         ReferralCode @relation(fields: [codeId], references: [id], onDelete: Cascade)
+  referredUser User         @relation("ReferredUser", fields: [newUserId], references: [id], onDelete: Cascade)
+
+  @@index([codeId])
+  @@index([newUserId])
+}
+
+// Push Notification Subscriptions
+model PushSubscription {
+  id        String   @id @default(cuid())
+  userId    String
+  endpoint  String   @unique
+  p256dh    String   // Public key for encryption
+  auth      String   // Auth secret for encryption
+  userAgent String?  // Browser/user agent info
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([endpoint])
+}

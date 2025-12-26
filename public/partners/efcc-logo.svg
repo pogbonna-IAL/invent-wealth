@@ -1,0 +1,15 @@
+<svg width="240" height="120" viewBox="0 0 240 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- EFCC Logo Placeholder - Replace with official logo -->
+  <rect width="240" height="120" fill="white" rx="8"/>
+  <rect x="1" y="1" width="238" height="118" fill="none" stroke="#253E8D" stroke-width="2" rx="7"/>
+  
+  <!-- EFCC Text -->
+  <text x="120" y="45" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#253E8D" text-anchor="middle">EFCC</text>
+  <text x="120" y="65" font-family="Arial, sans-serif" font-size="10" fill="#666" text-anchor="middle">Economic and Financial</text>
+  <text x="120" y="78" font-family="Arial, sans-serif" font-size="10" fill="#666" text-anchor="middle">Crimes Commission</text>
+  
+  <!-- Eagle Icon (Simplified) -->
+  <path d="M 120 20 Q 110 25 110 35 Q 110 40 115 42 Q 120 40 120 35 Q 120 40 125 42 Q 130 40 130 35 Q 130 25 120 20 Z" fill="#253E8D" opacity="0.3"/>
+  <path d="M 120 25 Q 115 28 115 32 Q 115 34 117 35 Q 120 34 120 32 Q 120 34 123 35 Q 125 34 125 32 Q 125 28 120 25 Z" fill="#253E8D"/>
+</svg>
+

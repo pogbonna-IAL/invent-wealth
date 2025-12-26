@@ -1,0 +1,57 @@
+{
+  "name": "InventWealth",
+  "short_name": "InventWealth",
+  "description": "Invest in premium properties through fractional ownership",
+  "start_url": "/dashboard",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#253E8D",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/invent-alliance-logo-small.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/invent-alliance-logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["finance", "business"],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Dashboard",
+      "short_name": "Dashboard",
+      "description": "View your investment dashboard",
+      "url": "/dashboard",
+      "icons": [{ "src": "/invent-alliance-logo-small.svg", "sizes": "any", "type": "image/svg+xml" }]
+    },
+    {
+      "name": "Invest",
+      "short_name": "Invest",
+      "description": "Browse investment opportunities",
+      "url": "/dashboard/invest",
+      "icons": [{ "src": "/invent-alliance-logo-small.svg", "sizes": "any", "type": "image/svg+xml" }]
+    },
+    {
+      "name": "Income",
+      "short_name": "Income",
+      "description": "View your income and distributions",
+      "url": "/income",
+      "icons": [{ "src": "/invent-alliance-logo-small.svg", "sizes": "any", "type": "image/svg+xml" }]
+    },
+    {
+      "name": "Properties",
+      "short_name": "Properties",
+      "description": "Explore available properties",
+      "url": "/dashboard/properties",
+      "icons": [{ "src": "/invent-alliance-logo-small.svg", "sizes": "any", "type": "image/svg+xml" }]
+    }
+  ]
+}
+

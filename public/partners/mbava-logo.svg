@@ -1,0 +1,16 @@
+<svg width="240" height="120" viewBox="0 0 240 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Mbava Logo Placeholder - Replace with official logo -->
+  <rect width="240" height="120" fill="white" rx="8"/>
+  <rect x="1" y="1" width="238" height="118" fill="none" stroke="#253E8D" stroke-width="2" rx="7"/>
+  
+  <!-- Mbava Text -->
+  <text x="120" y="50" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#253E8D" text-anchor="middle">Mbava</text>
+  <text x="120" y="70" font-family="Arial, sans-serif" font-size="11" fill="#666" text-anchor="middle">Property Management Technology</text>
+  
+  <!-- Building/Property Icon -->
+  <rect x="110" y="25" width="20" height="15" fill="#F58220" opacity="0.3" rx="2"/>
+  <path d="M 110 25 L 120 20 L 130 25 L 130 40 L 110 40 Z" fill="#F58220"/>
+  <rect x="113" y="28" width="4" height="4" fill="white"/>
+  <rect x="123" y="28" width="4" height="4" fill="white"/>
+</svg>
+
