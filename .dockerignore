@@ -49,4 +49,5 @@ docs/
 scripts/
 !scripts/docker-entrypoint.sh
 !scripts/wait-and-migrate.sh
+!scripts/wait-and-migrate.js
 
