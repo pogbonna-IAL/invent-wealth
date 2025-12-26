@@ -218,7 +218,7 @@ export function PayoutsTable({ payouts, distributionId }: PayoutsTableProps) {
         payoutIds: Array.from(selectedIds),
       });
 
-      if (result.success) {
+      if (result.success && "approvedCount" in result) {
         alert(`Approved ${result.approvedCount} payout(s)`);
         setSelectedIds(new Set());
         router.refresh();
@@ -244,7 +244,7 @@ export function PayoutsTable({ payouts, distributionId }: PayoutsTableProps) {
         payoutIds: Array.from(selectedIds),
       });
 
-      if (result.success) {
+      if (result.success && "submittedCount" in result) {
         alert(`Submitted ${result.submittedCount} payout(s) for approval`);
         setSelectedIds(new Set());
         router.refresh();
