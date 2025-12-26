@@ -1,44 +1,250 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# dependencies
+# ============================================
+# Dependencies
+# ============================================
 /node_modules
 /.pnp
 .pnp.js
 .yarn/install-state.gz
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/plugins
+.pnp.*
 
-# testing
+# ============================================
+# Testing
+# ============================================
 /coverage
+/.nyc_output
+/test-results
+/playwright-report
+/playwright/.cache
+*.spec.ts.snap
+*.test.ts.snap
 
-# next.js
+# ============================================
+# Next.js
+# ============================================
 /.next/
 /out/
+/.swc/
+next-env.d.ts
 
-# production
+# ============================================
+# Production / Build
+# ============================================
 /build
+/dist
+*.tsbuildinfo
+*.tsbuildinfo.*
 
-# misc
-.DS_Store
-*.pem
+# ============================================
+# Environment Variables
+# ============================================
+.env
+.env*.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.local
 
-# debug
+# ============================================
+# Debug & Logs
+# ============================================
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+*.log
+logs/
+*.log.*
 
-# local env files
-.env*.local
-.env
+# ============================================
+# IDE / Editor
+# ============================================
+# VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
 
-# vercel
+# IntelliJ IDEA / WebStorm
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+.vim/
+
+# Emacs
+*~
+\#*\#
+.\#*
+
+# ============================================
+# OS Files
+# ============================================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# ============================================
+# Prisma
+# ============================================
+/lib/generated/prisma
+prisma/migrations/**/migration.sql.bak
+
+# ============================================
+# Database
+# ============================================
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+*.db-shm
+*.db-wal
+
+# ============================================
+# Docker
+# ============================================
+.dockerignore
+docker-compose.override.yml
+*.dockerignore
+
+# ============================================
+# Deployment / Hosting
+# ============================================
+# Vercel
 .vercel
 
-# typescript
-*.tsbuildinfo
-next-env.d.ts
+# Railway
+.railway/
 
-# prisma
-/lib/generated/prisma
+# Netlify
+.netlify/
 
-# PM2 logs
+# ============================================
+# Cache & Temporary Files
+# ============================================
+.cache/
+.parcel-cache/
+.turbo/
+.tmp/
+tmp/
+temp/
+*.tmp
+*.temp
+*.cache
+
+# ============================================
+# Security & Secrets
+# ============================================
+*.pem
+*.key
+*.cert
+*.crt
+*.p12
+*.pfx
+secrets/
+.secrets
+*.secret
+
+# ============================================
+# Service Worker & PWA
+# ============================================
+**/sw.js.map
+**/workbox-*.js
+**/workbox-*.js.map
+**/sw.js.bak
+
+# ============================================
+# PM2
+# ============================================
 logs/
 *.log
+pids/
+*.pid
+*.seed
+*.pid.lock
+.pm2/
+
+# ============================================
+# Misc
+# ============================================
+# Backup files
+*.bak
+*.backup
+*.old
+*.orig
+
+# Archive files
+*.zip
+*.tar
+*.tar.gz
+*.rar
+*.7z
+
+# Package manager lock files (uncomment if you want to ignore them)
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+# Optional: Storybook build outputs
+storybook-static
+
+# Optional: Sentry
+.sentryclirc
+
+# Optional: Turborepo
+.turbo
