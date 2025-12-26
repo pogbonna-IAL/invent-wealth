@@ -58,6 +58,27 @@ export default async function StatementsPage() {
     );
   });
 
+  // Parse operatingCostItems helper function
+  const parseOperatingCostItems = (items: any): Array<{ description: string; amount: number }> | null => {
+    if (!items) return null;
+    
+    try {
+      const parsed = Array.isArray(items) ? items : JSON.parse(items as string);
+      if (!Array.isArray(parsed)) return null;
+      
+      return parsed.filter((item): item is { description: string; amount: number } => 
+        typeof item === 'object' && 
+        item !== null && 
+        'description' in item && 
+        'amount' in item &&
+        typeof item.description === 'string' &&
+        typeof item.amount === 'number'
+      );
+    } catch {
+      return null;
+    }
+  };
+
   // Serialize Decimal fields to numbers for client components
   const serializedStatements = statements.map((stmt) => ({
     id: stmt.id,
@@ -66,7 +87,7 @@ export default async function StatementsPage() {
     periodEnd: stmt.periodEnd instanceof Date ? stmt.periodEnd.toISOString() : stmt.periodEnd,
     grossRevenue: Number(stmt.grossRevenue),
     operatingCosts: Number(stmt.operatingCosts),
-    operatingCostItems: stmt.operatingCostItems,
+    operatingCostItems: parseOperatingCostItems(stmt.operatingCostItems),
     managementFee: Number(stmt.managementFee),
     incomeAdjustment: Number(stmt.incomeAdjustment ?? 0),
     netDistributable: Number(stmt.netDistributable),

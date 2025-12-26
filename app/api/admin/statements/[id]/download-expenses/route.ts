@@ -36,9 +36,20 @@ export async function GET(
     let operatingCostItems: Array<{ description: string; amount: number }> = [];
     if (statement.operatingCostItems) {
       try {
-        operatingCostItems = Array.isArray(statement.operatingCostItems)
+        const parsed = Array.isArray(statement.operatingCostItems)
           ? statement.operatingCostItems
           : JSON.parse(statement.operatingCostItems as string);
+        
+        if (Array.isArray(parsed)) {
+          operatingCostItems = parsed.filter((item): item is { description: string; amount: number } => 
+            typeof item === 'object' && 
+            item !== null && 
+            'description' in item && 
+            'amount' in item &&
+            typeof item.description === 'string' &&
+            typeof item.amount === 'number'
+          );
+        }
       } catch (e) {
         // If parsing fails, create a single item from the total
         operatingCostItems = [
