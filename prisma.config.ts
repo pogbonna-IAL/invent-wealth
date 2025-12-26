@@ -5,16 +5,18 @@
 import "dotenv/config";
 import { defineConfig } from "prisma/config";
 
-// Get DATABASE_URL from environment at runtime
+// Get DATABASE_URL from environment
 // Railway injects this when services are linked
-// Use a function to read it fresh each time Prisma accesses it
-function getDatabaseUrl(): string {
-  const url = process.env.DATABASE_URL;
-  if (!url) {
-    console.warn("Warning: DATABASE_URL not found in environment. Prisma will validate at runtime.");
-    console.warn("Available env vars:", Object.keys(process.env).filter(k => k.includes("DATABASE") || k.includes("DB")).join(", ") || "none");
-  }
-  return url || "";
+// Read it directly - it should be available when Prisma CLI runs
+const databaseUrl = process.env.DATABASE_URL;
+
+// Debug logging to help diagnose issues
+if (!databaseUrl) {
+  console.warn("Warning: DATABASE_URL not found in environment.");
+  console.warn("Available env vars with 'DATABASE' or 'DB':", 
+    Object.keys(process.env).filter(k => k.includes("DATABASE") || k.includes("DB")).join(", ") || "none");
+} else {
+  console.log("DATABASE_URL found in config:", databaseUrl.substring(0, 30) + "...");
 }
 
 export default defineConfig({
@@ -23,7 +25,7 @@ export default defineConfig({
     path: "prisma/migrations",
   },
   datasource: {
-    // Read DATABASE_URL at runtime when Prisma needs it
-    url: getDatabaseUrl() || process.env.DATABASE_URL || "",
+    // Prisma 7.x requires this - it will throw its own error if missing
+    url: databaseUrl || "",
   },
 });
