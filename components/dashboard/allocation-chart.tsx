@@ -60,7 +60,7 @@ export function AllocationChart({ data, title }: AllocationChartProps) {
             border: "1px solid hsl(var(--border))",
             borderRadius: "0.5rem",
           }}
-          formatter={(value: number) => formatCurrencyForChart(value, "USD")}
+          formatter={(value: number | undefined) => formatCurrencyForChart(value ?? 0, "USD")}
         />
         <Legend />
       </PieChart>
