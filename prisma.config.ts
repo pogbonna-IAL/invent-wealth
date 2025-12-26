@@ -3,33 +3,19 @@
 // Load dotenv/config for local development (Railway doesn't use .env files)
 // dotenv/config only sets variables that don't already exist, so Railway's env vars take precedence
 import "dotenv/config";
-import { defineConfig, env } from "prisma/config";
+import { defineConfig } from "prisma/config";
 
 // Log immediately when module loads to verify it's being executed
 console.log("[Prisma Config] Module loading...");
 console.log("[Prisma Config] DATABASE_URL at load time:", process.env.DATABASE_URL ? process.env.DATABASE_URL.substring(0, 30) + "..." : "NOT FOUND");
 console.log("[Prisma Config] All DATABASE/DB env vars:", Object.keys(process.env).filter(k => k.includes("DATABASE") || k.includes("DB")).join(", ") || "none");
 
-// Get DATABASE_URL from environment
-// Railway injects this when services are linked
-// Read it directly - it should be available when Prisma CLI runs
-// Use a getter function that reads fresh each time
-let _databaseUrl: string | undefined = undefined;
+// Get DATABASE_URL from environment - read directly
+const databaseUrl = process.env.DATABASE_URL;
 
-function getDatabaseUrl(): string {
-  // Always read fresh from process.env
-  const url = process.env.DATABASE_URL;
-  if (url !== _databaseUrl) {
-    _databaseUrl = url;
-    if (url) {
-      console.log("DATABASE_URL found in config:", url.substring(0, 30) + "...");
-    } else {
-      console.warn("Warning: DATABASE_URL not found in environment.");
-      console.warn("Available env vars with 'DATABASE' or 'DB':", 
-        Object.keys(process.env).filter(k => k.includes("DATABASE") || k.includes("DB")).join(", ") || "none");
-    }
-  }
-  return url || "";
+if (!databaseUrl) {
+  console.error("[Prisma Config] ERROR: DATABASE_URL is missing!");
+  console.error("[Prisma Config] Available env keys (first 20):", Object.keys(process.env).slice(0, 20).join(", "));
 }
 
 export default defineConfig({
@@ -38,8 +24,7 @@ export default defineConfig({
     path: "prisma/migrations",
   },
   datasource: {
-    // Try Prisma's env() helper first, then fall back to process.env
-    // Prisma 7.x's env() function properly reads from the environment
-    url: (typeof env === 'function' ? env('DATABASE_URL') : null) || process.env.DATABASE_URL || "",
+    // Read directly from process.env - Prisma 7.x requires this in config file
+    url: databaseUrl || "",
   },
 });
