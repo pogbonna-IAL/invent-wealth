@@ -106,6 +106,10 @@ export default async function PropertyDetailPage({
       adr: Number(stmt.adr),
       createdAt: stmt.createdAt instanceof Date ? stmt.createdAt.toISOString() : stmt.createdAt,
       updatedAt: stmt.updatedAt instanceof Date ? stmt.updatedAt.toISOString() : stmt.updatedAt,
+      distributions: stmt.distributions?.map((dist) => ({
+        id: dist.id,
+        status: dist.status,
+      })) || [],
     })) || [],
   };
 
@@ -284,9 +288,11 @@ export default async function PropertyDetailPage({
                 <div>
                   <p className="mb-2 text-sm text-muted-foreground">Highlights</p>
                   <ul className="list-disc list-inside space-y-1">
-                    {(property.highlights as string[]).map((highlight, idx) => (
-                      <li key={idx} className="text-sm">{highlight}</li>
-                    ))}
+                    {property.highlights
+                      .filter((item): item is string => typeof item === 'string')
+                      .map((highlight, idx) => (
+                        <li key={idx} className="text-sm">{highlight}</li>
+                      ))}
                   </ul>
                 </div>
               )}
@@ -396,7 +402,7 @@ export default async function PropertyDetailPage({
                     </p>
                   ) : (
                     <div className="space-y-4">
-                      {property.rentalStatements.map((stmt) => (
+                      {serializedProperty.rentalStatements.map((stmt) => (
                         <div
                           key={stmt.id}
                           className="border-b pb-4 last:border-0"
@@ -404,7 +410,7 @@ export default async function PropertyDetailPage({
                           <div className="flex items-center justify-between">
                             <div>
                               <p className="font-semibold">
-                                {stmt.periodStart.toLocaleDateString("en-US", {
+                                {new Date(stmt.periodStart).toLocaleDateString("en-US", {
                                   month: "long",
                                   year: "numeric",
                                 })}

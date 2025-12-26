@@ -1,5 +1,5 @@
 import { prisma } from "@/server/db/prisma";
-import { PropertyStatus, PropertyType } from "@prisma/client";
+import { PropertyStatus, PropertyType, Prisma } from "@prisma/client";
 
 interface PropertyFilters {
   city?: string;
@@ -26,7 +26,7 @@ export class PropertyService {
    * Get properties with filters and sorting
    */
   static async getPropertiesWithFilters(filters: PropertyFilters = {}) {
-    const where: any = {};
+    const where: Prisma.PropertyWhereInput = {};
 
     if (filters.city) {
       where.city = filters.city;

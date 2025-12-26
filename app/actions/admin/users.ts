@@ -156,7 +156,10 @@ export async function updateUserManually(data: z.infer<typeof updateUserSchema>)
       
       if (updateData.riskTolerance || updateData.investmentExperience) {
         const existing = await prisma.onboarding.findUnique({ where: { userId: id } });
-        const existingRiskAnswers = existing?.riskAnswers as any || {};
+        const existingRiskAnswers = (existing?.riskAnswers && 
+          typeof existing.riskAnswers === 'object' && 
+          existing.riskAnswers !== null
+        ) ? existing.riskAnswers as { riskTolerance?: string; investmentExperience?: string } : {};
         onboardingData.riskAnswers = {
           ...existingRiskAnswers,
           riskTolerance: updateData.riskTolerance || existingRiskAnswers.riskTolerance,

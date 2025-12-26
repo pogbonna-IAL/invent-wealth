@@ -60,8 +60,12 @@ export function EditPropertyForm({ property }: EditPropertyFormProps) {
     projectedAnnualYieldPct: property.projectedAnnualYieldPct.toString(),
     status: property.status,
     coverImage: property.coverImage || "",
-    gallery: Array.isArray(property.gallery) ? property.gallery.join("\n") : "",
-    highlights: Array.isArray(property.highlights) ? property.highlights.join("\n") : "",
+    gallery: Array.isArray(property.gallery) 
+      ? property.gallery.filter((item): item is string => typeof item === 'string').join("\n")
+      : "",
+    highlights: Array.isArray(property.highlights) 
+      ? property.highlights.filter((item): item is string => typeof item === 'string').join("\n")
+      : "",
   });
 
   const handleSubmit = async (e: React.FormEvent) => {

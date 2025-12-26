@@ -97,8 +97,8 @@ function StatementCard({ statement }: { statement: RentalStatement }) {
   const adr = Number(statement.adr);
 
   const hasDistribution = statement.distributions && statement.distributions.length > 0;
-  const distributionStatus = hasDistribution
-    ? statement.distributions![0].status
+  const distributionStatus = hasDistribution && statement.distributions && statement.distributions[0]
+    ? statement.distributions[0].status
     : null;
 
   // Parse operating cost items
@@ -106,9 +106,26 @@ function StatementCard({ statement }: { statement: RentalStatement }) {
   if (statement.operatingCostItems) {
     try {
       if (Array.isArray(statement.operatingCostItems)) {
-        costItems = statement.operatingCostItems;
+        costItems = statement.operatingCostItems.filter((item): item is OperatingCostItem => 
+          typeof item === 'object' && 
+          item !== null && 
+          'description' in item && 
+          'amount' in item &&
+          typeof item.description === 'string' &&
+          typeof item.amount === 'number'
+        );
       } else if (typeof statement.operatingCostItems === "string") {
-        costItems = JSON.parse(statement.operatingCostItems);
+        const parsed = JSON.parse(statement.operatingCostItems);
+        if (Array.isArray(parsed)) {
+          costItems = parsed.filter((item): item is OperatingCostItem => 
+            typeof item === 'object' && 
+            item !== null && 
+            'description' in item && 
+            'amount' in item &&
+            typeof item.description === 'string' &&
+            typeof item.amount === 'number'
+          );
+        }
       }
     } catch (e) {
       // If parsing fails, use empty array

@@ -21,13 +21,13 @@ interface EditStatementFormProps {
     propertyId: string;
     periodStart: Date;
     periodEnd: Date;
-    grossRevenue: any;
-    operatingCosts: any;
-    operatingCostItems: any;
-    managementFee: any;
-    incomeAdjustment: any;
-    occupancyRatePct: any;
-    adr: any;
+    grossRevenue: number;
+    operatingCosts: number;
+    operatingCostItems: Array<{ description: string; amount: number; category?: string; originalAmount?: number; monthlyAmount?: number }> | null;
+    managementFee: number;
+    incomeAdjustment: number;
+    occupancyRatePct: number;
+    adr: number;
     notes: string | null;
   };
   properties: Array<Omit<Property, "pricePerShare" | "targetRaise" | "projectedAnnualYieldPct"> & {

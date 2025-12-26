@@ -52,7 +52,14 @@ export default async function StatementDetailPage({
   if (statement.operatingCostItems) {
     try {
       if (Array.isArray(statement.operatingCostItems)) {
-        operatingCostItems = statement.operatingCostItems as Array<{ description: string; amount: number; category?: string; originalAmount?: number; monthlyAmount?: number }>;
+        operatingCostItems = statement.operatingCostItems.filter((item): item is { description: string; amount: number; category?: string; originalAmount?: number; monthlyAmount?: number } => 
+          typeof item === 'object' && 
+          item !== null && 
+          'description' in item && 
+          'amount' in item &&
+          typeof item.description === 'string' &&
+          typeof item.amount === 'number'
+        );
       } else if (typeof statement.operatingCostItems === "string") {
         const parsed = JSON.parse(statement.operatingCostItems);
         if (Array.isArray(parsed)) {
@@ -78,8 +85,8 @@ export default async function StatementDetailPage({
     ];
   }
 
-  const hasDistribution = statement.distributions.length > 0;
-  const distribution = hasDistribution ? {
+  const hasDistribution = statement.distributions && statement.distributions.length > 0;
+  const distribution = hasDistribution && statement.distributions[0] ? {
     ...statement.distributions[0],
     totalDistributed: Number(statement.distributions[0].totalDistributed),
   } : null;
