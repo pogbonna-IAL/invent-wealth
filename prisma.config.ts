@@ -3,31 +3,14 @@
 import "dotenv/config";
 import { defineConfig } from "prisma/config";
 
-// Ensure DATABASE_URL is available
+// Get DATABASE_URL from environment
+// Railway injects this when services are linked
 const databaseUrl = process.env.DATABASE_URL;
 
+// Don't throw immediately - Prisma will validate and provide a better error
+// This allows Railway to inject DATABASE_URL after the config module loads
 if (!databaseUrl) {
-  const errorMessage = [
-    "DATABASE_URL environment variable is required for Prisma migrations.",
-    "",
-    "Railway Setup Instructions:",
-    "1. In Railway, ensure you have a PostgreSQL service",
-    "2. Link the PostgreSQL service to your app service:",
-    "   - Go to your app service → Settings → Variables",
-    "   - Or use Railway's service linking feature",
-    "3. Railway will automatically provide DATABASE_URL when services are linked",
-    "",
-    "Current Environment:",
-    `- NODE_ENV: ${process.env.NODE_ENV || "not set"}`,
-    `- Railway: ${process.env.RAILWAY_ENVIRONMENT ? "detected" : "not detected"}`,
-    "",
-    "If DATABASE_URL is still missing after linking:",
-    "- Check Railway service → Variables tab",
-    "- Verify PostgreSQL service is running and healthy",
-    "- Try redeploying after ensuring services are linked",
-  ].join("\n");
-  
-  throw new Error(errorMessage);
+  console.warn("Warning: DATABASE_URL not found in environment. Prisma will validate at runtime.");
 }
 
 export default defineConfig({
@@ -36,6 +19,7 @@ export default defineConfig({
     path: "prisma/migrations",
   },
   datasource: {
-    url: databaseUrl,
+    // Prisma 7.x requires this - it will throw its own error if missing
+    url: databaseUrl || process.env.DATABASE_URL || "",
   },
 });
