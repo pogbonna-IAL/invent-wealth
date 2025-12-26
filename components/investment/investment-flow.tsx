@@ -105,7 +105,7 @@ export function InvestmentFlow({ property, userId }: InvestmentFlowProps) {
       });
 
       if (!result.success) {
-        throw new Error(result.error || "Investment failed");
+        throw new Error("error" in result ? result.error : "Investment failed");
       }
 
       // Redirect to dashboard with success message

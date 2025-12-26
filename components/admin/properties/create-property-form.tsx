@@ -82,7 +82,7 @@ export function CreatePropertyForm() {
       });
 
       if (!result.success) {
-        throw new Error(result.error || "Failed to create property");
+        throw new Error("error" in result ? result.error : "Failed to create property");
       }
 
       router.push(`/admin/properties/${result.propertyId}/edit`);

@@ -124,7 +124,7 @@ export function AdminInvestmentsTable({
         router.refresh();
         setDeleteReason("");
       } else {
-        alert(result.error || "Failed to delete investment");
+        alert("error" in result ? result.error : "Failed to delete investment");
       }
     } catch (error) {
       alert("An error occurred while deleting investment");

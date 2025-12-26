@@ -52,7 +52,7 @@ export function DeleteDistributionButton({
       });
 
       if (!result.success) {
-        throw new Error(result.error);
+        throw new Error("error" in result ? result.error : "Failed to delete distribution");
       }
 
       setSuccess("Distribution deleted successfully");

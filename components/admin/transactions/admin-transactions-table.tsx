@@ -116,7 +116,7 @@ export function AdminTransactionsTable({
       if (result.success) {
         router.refresh();
       } else {
-        alert(result.error || "Failed to delete transaction");
+        alert("error" in result ? result.error : "Failed to delete transaction");
       }
     } catch (error) {
       alert("An error occurred while deleting transaction");
@@ -142,7 +142,7 @@ export function AdminTransactionsTable({
         setSelectedIds(new Set());
         router.refresh();
       } else {
-        alert(result.error || "Failed to delete transactions");
+        alert("error" in result ? result.error : "Failed to delete transactions");
       }
     } catch (error) {
       alert("An error occurred while deleting transactions");

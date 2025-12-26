@@ -58,7 +58,7 @@ export function EditInvestmentForm({ investment }: EditInvestmentFormProps) {
       });
 
       if (!result.success) {
-        throw new Error(result.error || "Failed to update investment");
+        throw new Error("error" in result ? result.error : "Failed to update investment");
       }
 
       router.push(`/admin/users/${investment.userId}`);

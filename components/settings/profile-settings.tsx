@@ -61,7 +61,7 @@ export function ProfileSettings({ user }: ProfileSettingsProps) {
       const result = await updateProfile(formData);
 
       if (!result.success) {
-        throw new Error(result.error || "Failed to update profile");
+        throw new Error("error" in result ? result.error : "Failed to update profile");
       }
 
       setSuccess(true);

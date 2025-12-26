@@ -97,7 +97,7 @@ export function EditPropertyForm({ property }: EditPropertyFormProps) {
       });
 
       if (!result.success) {
-        throw new Error(result.error || "Failed to update property");
+        throw new Error("error" in result ? result.error : "Failed to update property");
       }
 
       router.push("/admin/properties");

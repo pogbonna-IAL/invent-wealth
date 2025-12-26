@@ -83,7 +83,7 @@ export function CreateUserForm() {
       });
 
       if (!result.success) {
-        throw new Error(result.error || "Failed to create user");
+        throw new Error("error" in result ? result.error : "Failed to create user");
       }
 
       // Show success message

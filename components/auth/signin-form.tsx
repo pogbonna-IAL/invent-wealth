@@ -123,7 +123,7 @@ export function SignInForm() {
       });
 
       if (!result.success) {
-        setError(result.error || "Failed to create account");
+        setError("error" in result ? result.error : "Failed to create account");
         setIsSignUpLoading(false);
         return;
       }

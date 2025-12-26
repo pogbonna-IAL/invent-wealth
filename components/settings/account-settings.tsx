@@ -39,7 +39,7 @@ export function AccountSettings({ userId }: AccountSettingsProps) {
       const result = await softDeleteAccount();
 
       if (!result.success) {
-        throw new Error(result.error || "Failed to deactivate account");
+        throw new Error("error" in result ? result.error : "Failed to deactivate account");
       }
 
       router.push("/auth/signin");
@@ -62,7 +62,7 @@ export function AccountSettings({ userId }: AccountSettingsProps) {
       const result = await deleteAccount();
 
       if (!result.success) {
-        throw new Error(result.error || "Failed to delete account");
+        throw new Error("error" in result ? result.error : "Failed to delete account");
       }
 
       router.push("/auth/signin");

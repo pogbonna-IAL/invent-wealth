@@ -48,7 +48,7 @@ export function DeclareDistributionButton({
       if (result.success) {
         router.refresh();
       } else {
-        setError(result.error || "Failed to declare distribution");
+        setError("error" in result ? result.error : "Failed to declare distribution");
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");

@@ -166,7 +166,7 @@ export function BulkDistributionForm({ properties, recentStatements }: BulkDistr
               payoutsCreated: result.payoutsCreated,
             });
           } else {
-            errors.push(`${item.propertyName}: ${result.error}`);
+            errors.push(`${item.propertyName}: ${"error" in result ? result.error : "Failed to create distribution"}`);
           }
         } catch (err) {
           errors.push(`${item.propertyName}: ${err instanceof Error ? err.message : "Unknown error"}`);

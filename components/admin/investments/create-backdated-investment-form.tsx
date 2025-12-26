@@ -103,7 +103,7 @@ export function CreateBackdatedInvestmentForm({
       });
 
       if (!result.success) {
-        throw new Error(result.error || "Failed to create investment");
+        throw new Error("error" in result ? result.error : "Failed to create investment");
       }
 
       // Get user and property names for success message

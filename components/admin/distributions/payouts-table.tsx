@@ -134,7 +134,7 @@ export function PayoutsTable({ payouts, distributionId }: PayoutsTableProps) {
         setEditData({});
         router.refresh();
       } else {
-        alert(result.error || "Failed to update payout");
+        alert("error" in result ? result.error : "Failed to update payout");
       }
     } catch (error) {
       alert("An error occurred while updating payout");
@@ -162,7 +162,7 @@ export function PayoutsTable({ payouts, distributionId }: PayoutsTableProps) {
         setSelectedIds(new Set());
         router.refresh();
       } else {
-        alert(result.error || "Failed to update payouts");
+        alert("error" in result ? result.error : "Failed to update payouts");
       }
     } catch (error) {
       alert("An error occurred while updating payouts");
@@ -197,7 +197,7 @@ export function PayoutsTable({ payouts, distributionId }: PayoutsTableProps) {
         alert("Payout approved successfully");
         router.refresh();
       } else {
-        alert(result.error || "Failed to approve payout");
+        alert("error" in result ? result.error : "Failed to approve payout");
       }
     } catch (error) {
       alert("An error occurred while approving payout");
@@ -223,7 +223,7 @@ export function PayoutsTable({ payouts, distributionId }: PayoutsTableProps) {
         setSelectedIds(new Set());
         router.refresh();
       } else {
-        alert(result.error || "Failed to approve payouts");
+        alert("error" in result ? result.error : "Failed to approve payouts");
       }
     } catch (error) {
       alert("An error occurred while approving payouts");
@@ -249,7 +249,7 @@ export function PayoutsTable({ payouts, distributionId }: PayoutsTableProps) {
         setSelectedIds(new Set());
         router.refresh();
       } else {
-        alert(result.error || "Failed to submit payouts for approval");
+        alert("error" in result ? result.error : "Failed to submit payouts for approval");
       }
     } catch (error) {
       alert("An error occurred while submitting payouts for approval");
