@@ -34,7 +34,19 @@ export function EditUserForm({ user }: EditUserFormProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<{
+    email: string;
+    name: string;
+    phone: string;
+    address: string;
+    country: string;
+    dob: string;
+    createdAt: string;
+    kycStatus: KycStatus;
+    onboardingStatus: OnboardingStatus;
+    riskTolerance: string;
+    investmentExperience: string;
+  }>({
     email: user.email,
     name: user.name,
     phone: user.phone,

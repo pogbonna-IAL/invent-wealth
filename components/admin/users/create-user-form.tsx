@@ -19,7 +19,19 @@ export function CreateUserForm() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<{
+    email: string;
+    name: string;
+    phone: string;
+    address: string;
+    country: string;
+    dob: string;
+    createdAt: string;
+    kycStatus: KycStatus;
+    onboardingStatus: OnboardingStatus;
+    riskTolerance: string;
+    investmentExperience: string;
+  }>({
     email: "",
     name: "",
     phone: "",
