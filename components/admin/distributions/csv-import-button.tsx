@@ -66,11 +66,11 @@ export function CSVImportButton({ distributionId }: CSVImportButtonProps) {
         setCsvData("");
         router.refresh();
       } else {
-        setError(
-          result.errors && result.errors.length > 0
+        const errorMessage = 
+          ("errors" in result && result.errors && result.errors.length > 0)
             ? result.errors.join("\n")
-            : result.error || "Failed to import payouts"
-        );
+            : ("error" in result ? result.error : "Failed to import payouts");
+        setError(errorMessage);
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");
