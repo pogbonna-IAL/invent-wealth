@@ -3,7 +3,7 @@
 // Load dotenv/config for local development (Railway doesn't use .env files)
 // dotenv/config only sets variables that don't already exist, so Railway's env vars take precedence
 import "dotenv/config";
-import { defineConfig } from "prisma/config";
+import { defineConfig, env } from "prisma/config";
 
 // Log immediately when module loads to verify it's being executed
 console.log("[Prisma Config] Module loading...");
@@ -38,9 +38,8 @@ export default defineConfig({
     path: "prisma/migrations",
   },
   datasource: {
-    // Read DATABASE_URL fresh - Prisma 7.x will validate it
-    get url() {
-      return getDatabaseUrl();
-    },
+    // Try Prisma's env() helper first, then fall back to process.env
+    // Prisma 7.x's env() function properly reads from the environment
+    url: (typeof env === 'function' ? env('DATABASE_URL') : null) || process.env.DATABASE_URL || "",
   },
 });
