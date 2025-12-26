@@ -117,7 +117,6 @@ export default async function StatementsPage() {
                 <CardContent>
                   <OccupancyADRChart
                     statements={serializedStatements}
-                    type="occupancy"
                   />
                 </CardContent>
               </Card>
@@ -127,7 +126,7 @@ export default async function StatementsPage() {
                   <CardDescription>Monthly ADR</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <OccupancyADRChart statements={serializedStatements} type="adr" />
+                  <OccupancyADRChart statements={serializedStatements} />
                 </CardContent>
               </Card>
             </div>
