@@ -207,17 +207,17 @@ export const authOptions: NextAuthConfig = {
   debug: process.env.NODE_ENV === "development",
   // Enable verbose logging for credentials provider
   logger: {
-    error(code, metadata) {
-      console.error("[NextAuth] Error:", code, metadata);
+    error(error) {
+      console.error("[NextAuth] Error:", error);
     },
-    warn(code) {
+    warn(message) {
       if (process.env.NODE_ENV === "development") {
-        console.warn("[NextAuth] Warning:", code);
+        console.warn("[NextAuth] Warning:", message);
       }
     },
-    debug(code, metadata) {
+    debug(message, metadata) {
       if (process.env.NODE_ENV === "development") {
-        console.log("[NextAuth] Debug:", code, metadata);
+        console.log("[NextAuth] Debug:", message, metadata);
       }
     },
   },
