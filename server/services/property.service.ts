@@ -33,11 +33,11 @@ export class PropertyService {
     }
 
     if (filters.propertyType) {
-      where.propertyType = filters.propertyType;
+      where.propertyType = filters.propertyType as PropertyType;
     }
 
     if (filters.status) {
-      where.status = filters.status;
+      where.status = filters.status as PropertyStatus;
     }
 
     if (filters.minInvestment !== undefined) {
