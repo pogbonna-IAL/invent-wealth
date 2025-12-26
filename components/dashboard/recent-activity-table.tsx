@@ -17,7 +17,7 @@ interface Transaction {
   type: string;
   amount: number;
   currency: string;
-  reference: string;
+  reference: string | null;
   createdAt: Date;
 }
 
@@ -67,7 +67,7 @@ export function RecentActivityTable({ transactions }: RecentActivityTableProps) 
                   </Badge>
                 </TableCell>
                 <TableCell className="font-mono text-xs text-muted-foreground">
-                  {transaction.reference}
+                  {transaction.reference || "N/A"}
                 </TableCell>
                 <TableCell
                   className={`text-right font-semibold ${
