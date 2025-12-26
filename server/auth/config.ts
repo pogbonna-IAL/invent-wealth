@@ -38,7 +38,7 @@ const providers = [
       email: { label: "Email", type: "text" },
       password: { label: "Password", type: "password" },
     },
-    async authorize(credentials) {
+    async authorize(credentials): Promise<{ id: string; email?: string; name?: string; role: string } | null> {
         const isDev = process.env.NODE_ENV === "development";
         
         if (isDev) {
@@ -47,15 +47,20 @@ const providers = [
         
         try {
           if (isDev) {
+            const email = typeof credentials?.email === 'string' ? credentials.email : undefined;
+            const password = typeof credentials?.password === 'string' ? credentials.password : undefined;
             console.log("[Auth] authorize called with:", {
-              hasEmail: !!credentials?.email,
-              hasPassword: !!credentials?.password,
-              emailLength: credentials?.email?.length,
-              passwordLength: credentials?.password?.length,
+              hasEmail: !!email,
+              hasPassword: !!password,
+              emailLength: email?.length,
+              passwordLength: password?.length,
             });
           }
 
-          if (!credentials?.email || !credentials?.password) {
+          const email = typeof credentials?.email === 'string' ? credentials.email : undefined;
+          const password = typeof credentials?.password === 'string' ? credentials.password : undefined;
+
+          if (!email || !password) {
             if (isDev) {
               console.log("[Auth] Missing credentials");
             }
@@ -63,11 +68,11 @@ const providers = [
           }
 
           // Trim whitespace from credentials
-          let email = credentials.email.trim();
-          const password = credentials.password.trim();
+          let trimmedEmail = email.trim();
+          const trimmedPassword = password.trim();
 
           if (isDev) {
-            console.log("[Auth] Attempting authentication for:", email.toLowerCase());
+            console.log("[Auth] Attempting authentication for:", trimmedEmail.toLowerCase());
           }
 
           // Lazy-load Prisma for credentials provider (only runs in Node.js runtime)
@@ -89,7 +94,7 @@ const providers = [
           }
 
           // Handle dev mode admin login: "admin" / "admin123" maps to admin user
-          if (isDev && email.toLowerCase() === "admin" && password === "admin123") {
+          if (isDev && trimmedEmail.toLowerCase() === "admin" && trimmedPassword === "admin123") {
             const adminUser = await prismaClient.user.findUnique({
               where: { email: "pogbonna@gmail.com" },
             });
@@ -142,17 +147,17 @@ const providers = [
 
           // Find user by email
           const user = await prismaClient.user.findUnique({
-            where: { email: email.toLowerCase() },
+            where: { email: trimmedEmail.toLowerCase() },
           });
 
           // If user exists and has passwordHash, verify password
           if (user && user.passwordHash) {
             const bcrypt = require("bcryptjs");
-            const isValidPassword = await bcrypt.compare(password, user.passwordHash);
+            const isValidPassword = await bcrypt.compare(trimmedPassword, user.passwordHash);
             
             if (isValidPassword) {
               if (isDev) {
-                console.log("[Auth] Password authentication successful for:", email);
+                console.log("[Auth] Password authentication successful for:", trimmedEmail);
               }
               return {
                 id: user.id,
