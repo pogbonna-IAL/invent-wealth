@@ -1,4 +1,4 @@
-import { NextAuthOptions } from "next-auth";
+import type { NextAuthConfig } from "next-auth";
 import EmailProvider from "next-auth/providers/email";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@auth/prisma-adapter";
@@ -188,7 +188,7 @@ const providers = [
 // but that's OK because proxy.ts only uses auth() for JWT validation, not the adapter
 // The adapter is only used in API routes (Node.js runtime) where Prisma works
 
-export const authOptions: NextAuthOptions = {
+export const authOptions: NextAuthConfig = {
   adapter: PrismaAdapter(prisma) as any,
   secret: process.env.NEXTAUTH_SECRET || "fallback-secret-for-development",
   providers,

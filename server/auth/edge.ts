@@ -1,11 +1,11 @@
 import NextAuth from "next-auth";
-import type { NextAuthOptions } from "next-auth";
+import type { NextAuthConfig } from "next-auth";
 
 // Minimal auth config for Edge runtime (proxy.ts)
 // This doesn't import Prisma or any Node.js-only modules
 // It's only used for JWT validation in the proxy
 // Note: Providers array is required by NextAuth, but empty is OK for JWT validation
-const edgeAuthOptions: NextAuthOptions = {
+const edgeAuthOptions: NextAuthConfig = {
   secret: process.env.NEXTAUTH_SECRET,
   providers: [], // Empty providers - only used for JWT validation, not authentication
   session: {
