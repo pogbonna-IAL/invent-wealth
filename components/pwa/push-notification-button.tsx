@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Bell, BellOff } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
 
 export function PushNotificationButton() {
   const [isSupported, setIsSupported] = useState(false);
