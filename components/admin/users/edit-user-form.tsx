@@ -10,6 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Loader2, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { updateUserManually } from "@/app/actions/admin/users";
+import { OnboardingStatus, KycStatus } from "@prisma/client";
 
 interface EditUserFormProps {
   user: {
@@ -21,8 +22,8 @@ interface EditUserFormProps {
     country: string;
     dob: string;
     createdAt: string;
-    kycStatus: "PENDING" | "IN_REVIEW" | "APPROVED" | "REJECTED";
-    onboardingStatus: "PENDING" | "IN_PROGRESS" | "COMPLETED";
+    kycStatus: KycStatus;
+    onboardingStatus: OnboardingStatus;
     riskTolerance: string;
     investmentExperience: string;
   };
@@ -191,8 +192,8 @@ export function EditUserForm({ user }: EditUserFormProps) {
               <Label htmlFor="onboardingStatus">Onboarding Status</Label>
               <Select
                 value={formData.onboardingStatus}
-                onValueChange={(value: "PENDING" | "IN_PROGRESS" | "COMPLETED") =>
-                  setFormData({ ...formData, onboardingStatus: value })
+                onValueChange={(value) =>
+                  setFormData({ ...formData, onboardingStatus: value as OnboardingStatus })
                 }
               >
                 <SelectTrigger id="onboardingStatus">
@@ -210,8 +211,8 @@ export function EditUserForm({ user }: EditUserFormProps) {
               <Label htmlFor="kycStatus">KYC Status</Label>
               <Select
                 value={formData.kycStatus}
-                onValueChange={(value: "PENDING" | "IN_REVIEW" | "APPROVED" | "REJECTED") =>
-                  setFormData({ ...formData, kycStatus: value })
+                onValueChange={(value) =>
+                  setFormData({ ...formData, kycStatus: value as KycStatus })
                 }
               >
                 <SelectTrigger id="kycStatus">

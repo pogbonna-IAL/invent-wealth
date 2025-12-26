@@ -213,7 +213,7 @@ export function EditPropertyForm({ property }: EditPropertyFormProps) {
               <Label htmlFor="propertyType">Property Type *</Label>
               <Select
                 value={formData.propertyType}
-                onValueChange={(value) => setFormData({ ...formData, propertyType: value })}
+                onValueChange={(value) => setFormData({ ...formData, propertyType: value as PropertyType })}
                 required
               >
                 <SelectTrigger id="propertyType">
@@ -233,7 +233,7 @@ export function EditPropertyForm({ property }: EditPropertyFormProps) {
               <Label htmlFor="shortletModel">Shortlet Model *</Label>
               <Select
                 value={formData.shortletModel}
-                onValueChange={(value) => setFormData({ ...formData, shortletModel: value })}
+                onValueChange={(value) => setFormData({ ...formData, shortletModel: value as ShortletModel })}
                 required
               >
                 <SelectTrigger id="shortletModel">
@@ -359,7 +359,7 @@ export function EditPropertyForm({ property }: EditPropertyFormProps) {
               <Label htmlFor="status">Status *</Label>
               <Select
                 value={formData.status}
-                onValueChange={(value) => setFormData({ ...formData, status: value })}
+                onValueChange={(value) => setFormData({ ...formData, status: value as PropertyStatus })}
                 required
               >
                 <SelectTrigger id="status">

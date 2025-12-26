@@ -11,6 +11,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Loader2, ArrowLeft, CheckCircle2, XCircle } from "lucide-react";
 import Link from "next/link";
 import { createUserManually } from "@/app/actions/admin/users";
+import { OnboardingStatus, KycStatus } from "@prisma/client";
 
 export function CreateUserForm() {
   const router = useRouter();
@@ -26,8 +27,8 @@ export function CreateUserForm() {
     country: "",
     dob: "",
     createdAt: "",
-    kycStatus: "APPROVED" as const,
-    onboardingStatus: "COMPLETED" as const,
+    kycStatus: KycStatus.APPROVED,
+    onboardingStatus: OnboardingStatus.COMPLETED,
     riskTolerance: "moderate",
     investmentExperience: "intermediate",
   });
@@ -217,8 +218,8 @@ export function CreateUserForm() {
               <Label htmlFor="onboardingStatus">Onboarding Status</Label>
               <Select
                 value={formData.onboardingStatus}
-                onValueChange={(value: "PENDING" | "IN_PROGRESS" | "COMPLETED") =>
-                  setFormData({ ...formData, onboardingStatus: value })
+                onValueChange={(value) =>
+                  setFormData({ ...formData, onboardingStatus: value as OnboardingStatus })
                 }
               >
                 <SelectTrigger id="onboardingStatus">
@@ -236,8 +237,8 @@ export function CreateUserForm() {
               <Label htmlFor="kycStatus">KYC Status</Label>
               <Select
                 value={formData.kycStatus}
-                onValueChange={(value: "PENDING" | "IN_REVIEW" | "APPROVED" | "REJECTED") =>
-                  setFormData({ ...formData, kycStatus: value })
+                onValueChange={(value) =>
+                  setFormData({ ...formData, kycStatus: value as KycStatus })
                 }
               >
                 <SelectTrigger id="kycStatus">
