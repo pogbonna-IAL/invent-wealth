@@ -47,11 +47,14 @@ export function PushNotificationButton() {
       }
 
       const registration = await navigator.serviceWorker.ready;
+      const vapidKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
+      if (!vapidKey) {
+        throw new Error("VAPID public key is not configured");
+      }
+      const keyArray = urlBase64ToUint8Array(vapidKey);
       const subscription = await registration.pushManager.subscribe({
         userVisibleOnly: true,
-        applicationServerKey: urlBase64ToUint8Array(
-          process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY || ""
-        ),
+        applicationServerKey: keyArray as unknown as BufferSource,
       });
 
       // Send subscription to server
