@@ -14,7 +14,7 @@
     "db:migrate:deploy": "prisma migrate deploy",
     "db:studio": "prisma studio",
     "db:seed": "tsx prisma/seed.ts",
-    "railway:deploy": "npx prisma migrate deploy && npm start",
+    "railway:deploy": "npm run db:migrate:deploy && npm start",
     "test:e2e": "playwright test"
   },
   "prisma": {
