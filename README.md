@@ -545,4 +545,4 @@ This project is open-source and available under the MIT License.
 
 ## Support
 
-For issues and questions, please open an issue on GitHub or contact support@inventwealth.com.
+For issues and questions, please open an issue on GitHub or contact support@invest.inventallianceco.com.
