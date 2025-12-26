@@ -69,8 +69,8 @@ export function CSVImportButton({ distributionId }: CSVImportButtonProps) {
         const errorMessage = 
           ("errors" in result && result.errors && result.errors.length > 0)
             ? result.errors.join("\n")
-            : ("error" in result ? result.error : "Failed to import payouts");
-        setError(errorMessage);
+            : ("error" in result && result.error ? result.error : "Failed to import payouts");
+        setError(errorMessage || null);
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");
