@@ -8,6 +8,8 @@ import Link from "next/link";
 import { format } from "date-fns";
 import { Badge } from "@/components/ui/badge";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminUsersOverviewPage() {
   // Get all users with their investments and payouts
   const users = await prisma.user.findMany({

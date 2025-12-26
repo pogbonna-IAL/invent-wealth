@@ -6,6 +6,8 @@ import Link from "next/link";
 import { format } from "date-fns";
 import { formatCurrencyNGN } from "@/lib/utils/currency";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminDistributionsPage() {
   const distributions = await prisma.distribution.findMany({
     include: {

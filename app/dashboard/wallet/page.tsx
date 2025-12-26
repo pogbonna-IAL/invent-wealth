@@ -10,6 +10,8 @@ import { formatCurrencyNGN } from "@/lib/utils/currency";
 import { StatCard } from "@/components/ui/stat-card";
 import { format } from "date-fns";
 
+export const dynamic = "force-dynamic";
+
 export default async function WalletPage() {
   const session = await auth();
 

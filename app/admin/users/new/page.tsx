@@ -1,5 +1,7 @@
 import { CreateUserForm } from "@/components/admin/users/create-user-form";
 
+export const dynamic = "force-dynamic";
+
 export default async function NewUserPage() {
   return (
     <div className="space-y-8">

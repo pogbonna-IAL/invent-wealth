@@ -2,6 +2,8 @@ import { PropertyService } from "@/server/services/property.service";
 import { notFound } from "next/navigation";
 import { EditPropertyForm } from "@/components/admin/properties/edit-property-form";
 
+export const dynamic = "force-dynamic";
+
 export default async function EditPropertyPage({
   params,
 }: {

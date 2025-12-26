@@ -3,6 +3,8 @@ import { redirect } from "next/navigation";
 import { prisma } from "@/server/db/prisma";
 import { OnboardingWizard } from "@/components/onboarding/onboarding-wizard";
 
+export const dynamic = "force-dynamic";
+
 export default async function OnboardingPage() {
   const session = await auth();
 

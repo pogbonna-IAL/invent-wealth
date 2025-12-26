@@ -2,6 +2,8 @@ import { CreateBackdatedInvestmentForm } from "@/components/admin/investments/cr
 import { PropertyService } from "@/server/services/property.service";
 import { prisma } from "@/server/db/prisma";
 
+export const dynamic = "force-dynamic";
+
 export default async function NewBackdatedInvestmentPage() {
   const properties = await PropertyService.getProperties();
   const users = await prisma.user.findMany({

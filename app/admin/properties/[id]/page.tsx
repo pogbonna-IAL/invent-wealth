@@ -10,6 +10,9 @@ import { formatCurrencyNGN } from "@/lib/utils/currency";
 import { prisma } from "@/server/db/prisma";
 import Image from "next/image";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
+export const dynamic = "force-dynamic";
+
 import {
   Table,
   TableBody,

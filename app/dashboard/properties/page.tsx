@@ -3,6 +3,8 @@ import { redirect } from "next/navigation";
 import { PropertyService } from "@/server/services/property.service";
 import { PropertiesCatalog } from "@/components/properties/properties-catalog";
 
+export const dynamic = "force-dynamic";
+
 export default async function DashboardPropertiesPage({
   searchParams,
 }: {

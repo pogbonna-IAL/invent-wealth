@@ -18,6 +18,8 @@ const OccupancyADRChart = dynamic(
   }
 );
 
+export const dynamic = "force-dynamic";
+
 export default async function StatementsPage() {
   const session = await auth();
 

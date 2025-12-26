@@ -3,6 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   // Enable standalone output for Docker builds (Railway uses standard build)
   output: process.env.DOCKER_BUILD ? "standalone" : undefined,
+  
   images: {
     remotePatterns: [
       {
@@ -23,14 +24,26 @@ const nextConfig: NextConfig = {
     dangerouslyAllowSVG: false,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
+  
   experimental: {
     optimizePackageImports: ["recharts", "lucide-react"],
+    // Skip static optimization for routes that use database
+    // This prevents build-time errors when DATABASE_URL is not set
+    isrMemoryCacheSize: 0, // Disable ISR cache during build
   },
+  
   // Include Prisma client files in the build output
   outputFileTracingIncludes: {
     "/api/**/*": ["./node_modules/.prisma/client/**/*"],
     "/*": ["./node_modules/.prisma/client/**/*"],
   },
+  
+  // Generate unique build ID to prevent static page reuse
+  generateBuildId: async () => {
+    // Use BUILD_ID if provided, otherwise use timestamp
+    return process.env.BUILD_ID || `build-${Date.now()}`;
+  },
+  
   async headers() {
     return [
       {

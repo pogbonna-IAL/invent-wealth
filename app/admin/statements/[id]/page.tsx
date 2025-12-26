@@ -10,6 +10,8 @@ import { formatCurrencyNGN } from "@/lib/utils/currency";
 import { DownloadExpensesButton } from "@/components/admin/statements/download-expenses-button";
 import { DeclareDistributionButton } from "@/components/admin/statements/declare-distribution-button";
 
+export const dynamic = "force-dynamic";
+
 const OPERATING_COST_CATEGORIES = {
   GENERAL_OPERATIONS: "General Operations Expenses",
   MARKETING: "Marketing Expenses",

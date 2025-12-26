@@ -5,6 +5,8 @@ import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { BulkDistributionForm } from "@/components/admin/distributions/bulk-distribution-form";
 
+export const dynamic = "force-dynamic";
+
 export default async function BulkDistributionPage() {
   const properties = await prisma.property.findMany({
     select: {

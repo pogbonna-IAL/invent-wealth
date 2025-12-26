@@ -1,5 +1,7 @@
 import { CreatePropertyForm } from "@/components/admin/properties/create-property-form";
 
+export const dynamic = "force-dynamic";
+
 export default function NewPropertyPage() {
   return (
     <div className="space-y-8">

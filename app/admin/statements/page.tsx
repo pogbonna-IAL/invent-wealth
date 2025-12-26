@@ -7,6 +7,8 @@ import { format } from "date-fns";
 import { DeclareDistributionButton } from "@/components/admin/statements/declare-distribution-button";
 import { DownloadExpensesButton } from "@/components/admin/statements/download-expenses-button";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminStatementsPage() {
   const statements = await prisma.rentalStatement.findMany({
     include: {

@@ -8,6 +8,8 @@ import Link from "next/link";
 import { AdminIncomeTable } from "@/components/admin/income/admin-income-table";
 import { format } from "date-fns";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminIncomePage() {
   // Get all payouts with user and property info
   const payouts = await prisma.payout.findMany({

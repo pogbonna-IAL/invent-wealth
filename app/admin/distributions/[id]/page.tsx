@@ -13,6 +13,8 @@ import { CSVTemplateButton } from "@/components/admin/distributions/csv-template
 import { DistributionApprovalButtons } from "@/components/admin/distributions/distribution-approval-buttons";
 import { DeleteDistributionButton } from "@/components/admin/distributions/delete-distribution-button";
 import { FixUnderwriterPayoutsButton } from "@/components/admin/distributions/fix-underwriter-payouts-button";
+
+export const dynamic = "force-dynamic";
 import { DistributionStatus, PayoutStatus } from "@prisma/client";
 
 export default async function DistributionDetailPage({

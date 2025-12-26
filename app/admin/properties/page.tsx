@@ -6,6 +6,8 @@ import Link from "next/link";
 import { Plus, Edit, Eye, FileText } from "lucide-react";
 import { formatCurrencyNGN } from "@/lib/utils/currency";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminPropertiesPage() {
   const properties = await PropertyService.getProperties();
 

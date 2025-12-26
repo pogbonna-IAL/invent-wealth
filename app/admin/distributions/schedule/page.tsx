@@ -5,6 +5,8 @@ import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { ScheduledDistributionsList } from "@/components/admin/distributions/scheduled-distributions-list";
 
+export const dynamic = "force-dynamic";
+
 export default async function DistributionSchedulePage() {
   // In a real implementation, you'd have a ScheduledDistribution model
   // For now, we'll show distributions that are scheduled for future dates

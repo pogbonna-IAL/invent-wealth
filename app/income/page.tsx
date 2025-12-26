@@ -11,6 +11,8 @@ import { DistributionsByProperty } from "@/components/income/distributions-by-pr
 import { HowWeCalculateModal } from "@/components/income/how-we-calculate-modal";
 import { formatCurrencyNGN } from "@/lib/utils/currency";
 
+export const dynamic = "force-dynamic";
+
 export default async function IncomePage() {
   const session = await auth();
 

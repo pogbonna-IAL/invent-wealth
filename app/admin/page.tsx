@@ -9,6 +9,8 @@ import { formatCurrencyNGN } from "@/lib/utils/currency";
 import { format } from "date-fns";
 import { Badge } from "@/components/ui/badge";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminDashboardPage() {
   const session = await auth();
 

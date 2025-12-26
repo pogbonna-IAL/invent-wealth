@@ -9,6 +9,8 @@ import { Button } from "@/components/ui/button";
 import { OnboardingBanner } from "@/components/onboarding/onboarding-banner";
 import { formatCurrencyNGN } from "@/lib/utils/currency";
 
+export const dynamic = "force-dynamic";
+
 export default async function InvestPage() {
   const session = await auth();
 

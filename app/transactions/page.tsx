@@ -8,6 +8,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { StatCard } from "@/components/ui/stat-card";
 import { formatCurrencyNGN } from "@/lib/utils/currency";
 
+export const dynamic = "force-dynamic";
+
 export default async function TransactionsPage({
   searchParams,
 }: {

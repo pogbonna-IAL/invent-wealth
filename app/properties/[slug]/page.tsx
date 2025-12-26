@@ -30,6 +30,8 @@ import { formatCurrencyNGN } from "@/lib/utils/currency";
 import { PropertyGallery } from "@/components/properties/property-gallery";
 import { SocialShare } from "@/components/marketing/social-share";
 
+export const dynamic = "force-dynamic";
+
 export async function generateMetadata({
   params,
 }: {

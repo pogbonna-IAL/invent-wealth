@@ -5,6 +5,8 @@ import { prisma } from "@/server/db/prisma";
 import { AppLayout } from "@/components/layout/app-layout";
 import { SettingsTabs } from "@/components/settings/settings-tabs";
 
+export const dynamic = "force-dynamic";
+
 export default async function SettingsPage() {
   const session = await auth();
 

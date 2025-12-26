@@ -1,6 +1,8 @@
 import { CreateStatementForm } from "@/components/admin/statements/create-statement-form";
 import { PropertyService } from "@/server/services/property.service";
 
+export const dynamic = "force-dynamic";
+
 export default async function NewStatementPage() {
   const properties = await PropertyService.getProperties();
 

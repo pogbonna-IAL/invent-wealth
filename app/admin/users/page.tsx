@@ -6,6 +6,8 @@ import Link from "next/link";
 import { FileText, Edit } from "lucide-react";
 import { format } from "date-fns";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminUsersPage() {
   const users = await prisma.user.findMany({
     // Removed role filter to show all users (INVESTOR and ADMIN)

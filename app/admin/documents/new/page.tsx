@@ -2,6 +2,8 @@ import { PropertyService } from "@/server/services/property.service";
 import { prisma } from "@/server/db/prisma";
 import { UploadDocumentForm } from "@/components/admin/documents/upload-document-form";
 
+export const dynamic = "force-dynamic";
+
 export default async function NewDocumentPage() {
   const [properties, users] = await Promise.all([
     PropertyService.getProperties(),

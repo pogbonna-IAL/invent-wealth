@@ -18,6 +18,13 @@ ENV NEXT_TELEMETRY_DISABLED 1
 
 # Build with standalone output for Docker
 ENV DOCKER_BUILD=true
+
+# Accept DATABASE_URL as build arg (optional - allows build without DB)
+# If DATABASE_URL is not provided, the build will still work but pages will be dynamic
+ARG DATABASE_URL
+ENV DATABASE_URL=${DATABASE_URL}
+
+# Build the application
 RUN npm run build
 
 # Production image, copy all the files and run next

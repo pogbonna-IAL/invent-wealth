@@ -9,6 +9,8 @@ import { format } from "date-fns";
 import { Badge } from "@/components/ui/badge";
 import { MultiPropertyDistributionChart } from "@/components/admin/distributions/multi-property-distribution-chart";
 
+export const dynamic = "force-dynamic";
+
 export default async function MultiPropertyDistributionDashboard() {
   // Get all distributions grouped by property
   const distributions = await prisma.distribution.findMany({

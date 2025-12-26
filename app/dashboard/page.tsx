@@ -37,6 +37,8 @@ const AllocationChart = dynamic(
 import { format } from "date-fns";
 import { formatCurrencyNGN } from "@/lib/utils/currency";
 
+export const dynamic = "force-dynamic";
+
 export default async function DashboardOverviewPage() {
   const session = await auth();
 
