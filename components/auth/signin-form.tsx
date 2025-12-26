@@ -123,7 +123,7 @@ export function SignInForm() {
       });
 
       if (!result.success) {
-        setError("error" in result ? result.error : "Failed to create account");
+        setError(("error" in result && result.error) ? result.error : "Failed to create account");
         setIsSignUpLoading(false);
         return;
       }
@@ -176,7 +176,7 @@ export function SignInForm() {
 
       if (result?.error) {
         console.error("[SignInForm] SignIn error:", result.error);
-        setError(`Invalid credentials. Error: ${result.error}`);
+        setError(`Invalid credentials. Error: ${result.error || "Unknown error"}`);
         setIsDevLoading(false);
       } else if (result?.ok) {
         console.log("[SignInForm] SignIn successful, checking user role...");

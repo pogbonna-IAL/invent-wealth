@@ -57,7 +57,7 @@ export function UploadDocumentForm({ properties, users }: UploadDocumentFormProp
         router.push("/admin/documents");
         router.refresh();
       } else {
-        setError("error" in result ? result.error : "Failed to upload document");
+        setError(("error" in result && result.error) ? result.error : "Failed to upload document");
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");

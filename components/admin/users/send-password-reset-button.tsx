@@ -51,7 +51,7 @@ export function SendPasswordResetButton({
           router.refresh();
         }, 2000);
       } else {
-        setError("error" in result ? result.error : "Failed to send password reset email");
+        setError(("error" in result && result.error) ? result.error : "Failed to send password reset email");
       }
     } catch (err) {
       const errorMessage =

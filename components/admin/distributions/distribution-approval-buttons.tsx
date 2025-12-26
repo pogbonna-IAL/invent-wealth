@@ -54,7 +54,7 @@ export function DistributionApprovalButtons({
       if (result.success) {
         router.refresh();
       } else {
-        setError("error" in result ? result.error : "Failed to submit for approval");
+        setError(("error" in result && result.error) ? result.error : "Failed to submit for approval");
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");
@@ -76,7 +76,7 @@ export function DistributionApprovalButtons({
       if (result.success) {
         router.refresh();
       } else {
-        setError("error" in result ? result.error : "Failed to approve distribution");
+        setError(("error" in result && result.error) ? result.error : "Failed to approve distribution");
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");
@@ -98,7 +98,7 @@ export function DistributionApprovalButtons({
       if (result.success) {
         router.refresh();
       } else {
-        setError("error" in result ? result.error : "Failed to reject distribution");
+        setError(("error" in result && result.error) ? result.error : "Failed to reject distribution");
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");
@@ -117,7 +117,7 @@ export function DistributionApprovalButtons({
       if (result.success) {
         router.refresh();
       } else {
-        setError("error" in result ? result.error : "Failed to declare distribution");
+        setError(("error" in result && result.error) ? result.error : "Failed to declare distribution");
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");

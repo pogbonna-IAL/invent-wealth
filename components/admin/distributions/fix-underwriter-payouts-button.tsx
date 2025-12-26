@@ -46,7 +46,7 @@ export function FixUnderwriterPayoutsButton({
           router.refresh();
         }, 1500);
       } else {
-        setError("error" in result ? result.error : "Failed to fix under_writer payouts");
+        setError(("error" in result && result.error) ? result.error : "Failed to fix under_writer payouts");
       }
     } catch (err) {
       const errorMessage =
