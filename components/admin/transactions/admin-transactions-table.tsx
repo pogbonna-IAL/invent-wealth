@@ -137,7 +137,7 @@ export function AdminTransactionsTable({
         transactionIds: Array.from(selectedIds),
       });
 
-      if (result.success) {
+      if (result.success && "deletedCount" in result) {
         alert(`Successfully deleted ${result.deletedCount} transaction(s)`);
         setSelectedIds(new Set());
         router.refresh();

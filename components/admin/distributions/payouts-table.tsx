@@ -157,7 +157,7 @@ export function PayoutsTable({ payouts, distributionId }: PayoutsTableProps) {
         paidAt: status === "PAID" ? new Date().toISOString() : "",
       });
 
-      if (result.success) {
+      if (result.success && "updatedCount" in result) {
         alert(`Updated ${result.updatedCount} payout(s)`);
         setSelectedIds(new Set());
         router.refresh();
