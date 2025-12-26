@@ -12,7 +12,7 @@
     "db:generate": "npx prisma generate",
     "db:migrate": "npx prisma migrate dev",
     "db:migrate:deploy": "npx prisma migrate deploy",
-    "db:migrate:deploy:wait": "node scripts/wait-and-migrate.js",
+    "db:migrate:deploy:wait": "bash wait-for-db-and-migrate.sh",
     "db:studio": "npx prisma studio",
     "db:seed": "tsx prisma/seed.ts",
     "railway:deploy": "npm run db:migrate:deploy && npm start",
