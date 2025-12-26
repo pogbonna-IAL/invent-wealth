@@ -27,9 +27,6 @@ const nextConfig: NextConfig = {
   
   experimental: {
     optimizePackageImports: ["recharts", "lucide-react"],
-    // Skip static optimization for routes that use database
-    // This prevents build-time errors when DATABASE_URL is not set
-    isrMemoryCacheSize: 0, // Disable ISR cache during build
   },
   
   // Include Prisma client files in the build output
