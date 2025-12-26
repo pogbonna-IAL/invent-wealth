@@ -76,6 +76,27 @@ export default async function EditStatementPage({
     (d) => d.status !== "DRAFT"
   );
 
+  // Parse operatingCostItems for serializedStatement
+  const parseOperatingCostItems = (items: any): Array<{ description: string; amount: number; category?: string; originalAmount?: number; monthlyAmount?: number }> | null => {
+    if (!items) return null;
+    
+    try {
+      const parsed = Array.isArray(items) ? items : JSON.parse(items as string);
+      if (!Array.isArray(parsed)) return null;
+      
+      return parsed.filter((item): item is { description: string; amount: number; category?: string; originalAmount?: number; monthlyAmount?: number } => 
+        typeof item === 'object' && 
+        item !== null && 
+        'description' in item && 
+        'amount' in item &&
+        typeof item.description === 'string' &&
+        typeof item.amount === 'number'
+      );
+    } catch {
+      return null;
+    }
+  };
+
   // Serialize Decimal fields to numbers for client component
   const serializedStatement = {
     ...statement,
@@ -88,6 +109,7 @@ export default async function EditStatementPage({
     adr: Number(statement.adr),
     periodStart: statement.periodStart,
     periodEnd: statement.periodEnd,
+    operatingCostItems: parseOperatingCostItems(statement.operatingCostItems),
   };
 
   // Serialize properties Decimal fields to numbers
