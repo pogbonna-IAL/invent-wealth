@@ -91,7 +91,7 @@ export function EditInvestmentForm({ investment }: EditInvestmentFormProps) {
                   setFormData({
                     ...formData,
                     shares: newShares,
-                    totalAmount: (parseFloat(newShares) || 0) * investment.pricePerShareAtPurchase,
+                    totalAmount: ((parseFloat(newShares) || 0) * investment.pricePerShareAtPurchase).toString(),
                   });
                 }}
                 required
