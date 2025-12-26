@@ -48,7 +48,7 @@ export function IncomeDistributionsChart({ data }: IncomeDistributionsChartProps
             border: "1px solid hsl(var(--border))",
             borderRadius: "0.5rem",
           }}
-          formatter={(value: number | undefined) => [formatCurrencyForChart(value ?? 0, "USD"), "Income"]}
+          formatter={(value: any) => [formatCurrencyForChart(typeof value === 'number' ? value : 0, "USD"), "Income"]}
         />
         <Legend />
         <Bar dataKey="amount" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />

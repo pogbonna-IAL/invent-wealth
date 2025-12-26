@@ -48,7 +48,7 @@ export function PortfolioValueChart({ data }: PortfolioValueChartProps) {
             border: "1px solid hsl(var(--border))",
             borderRadius: "0.5rem",
           }}
-          formatter={(value: number | undefined) => [formatCurrencyForChart(value ?? 0, "USD"), "Value"]}
+          formatter={(value: any) => [formatCurrencyForChart(typeof value === 'number' ? value : 0, "USD"), "Value"]}
         />
         <Legend />
         <Line
