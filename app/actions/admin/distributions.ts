@@ -37,6 +37,75 @@ const declareDistributionFromStatementSchema = z.object({
   rentalStatementId: z.string().min(1, "Rental statement ID is required"),
 });
 
+const createDraftDistributionSchema = z.object({
+  propertyId: z.string().min(1, "Property ID is required"),
+  rentalStatementId: z.string().min(1, "Rental statement ID is required"),
+});
+
+export async function createDraftDistribution(
+  data: z.infer<typeof createDraftDistributionSchema>
+) {
+  try {
+    const session = await auth();
+    if (!session?.user?.id) {
+      return { success: false, error: "Unauthorized" };
+    }
+
+    await requireAdmin(session.user.id);
+
+    const { propertyId, rentalStatementId } = createDraftDistributionSchema.parse(data);
+
+    // Check if distribution already exists for this rental statement
+    const existingDistribution = await prisma.distribution.findFirst({
+      where: { rentalStatementId },
+    });
+
+    if (existingDistribution) {
+      return {
+        success: false,
+        error: "A distribution already exists for this rental statement",
+      };
+    }
+
+    // Create draft distribution and payouts
+    const result = await DistributionService.createDraftDistribution(
+      propertyId,
+      rentalStatementId
+    );
+
+    // Create audit log
+    await prisma.auditLog.create({
+      data: {
+        userId: session.user.id,
+        action: "DRAFT_DISTRIBUTION_CREATED",
+        metadata: {
+          distributionId: result.distribution.id,
+          propertyId,
+          rentalStatementId,
+          totalDistributed: Number(result.distribution.totalDistributed),
+          payoutsCreated: result.payouts.length,
+        },
+      },
+    });
+
+    return {
+      success: true,
+      distributionId: result.distribution.id,
+      payoutsCreated: result.payouts.length,
+      message: `Draft distribution created successfully. ${result.payouts.length} payouts created.`,
+    };
+  } catch (error) {
+    console.error("Create draft distribution error:", error);
+    return {
+      success: false,
+      error:
+        error instanceof Error
+          ? error.message
+          : "Failed to create draft distribution",
+    };
+  }
+}
+
 export async function declareDistributionFromStatement(
   data: z.infer<typeof declareDistributionFromStatementSchema>
 ) {
