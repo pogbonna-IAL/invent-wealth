@@ -3,7 +3,7 @@ import { auth } from "@/server/auth";
 import { requireAdmin } from "@/server/services/admin.service";
 import { prisma } from "@/server/db/prisma";
 import { z } from "zod";
-import { calculateMonthlyBreakdown, prorateToMonthly } from "@/lib/utils/statement-pro-rating";
+import { calculateMonthlyBreakdown, prorateToMonthly, type MonthlyBreakdown } from "@/lib/utils/statement-pro-rating";
 
 const operatingCostItemSchema = z.object({
   description: z.string().min(1, "Description is required"),
@@ -61,8 +61,8 @@ export async function POST(request: NextRequest) {
        (periodStart.getDate() !== 1 || periodEnd.getDate() !== new Date(endYear, endMonth + 1, 0).getDate()));
     
     // Calculate monthly breakdown for pro-rating
-    let monthlyBreakdown = null;
-    let proratedOperatingCostItems = null;
+    let monthlyBreakdown: MonthlyBreakdown[] | null = null;
+    let proratedOperatingCostItems: Array<{ description: string; amount: number; category?: string; monthlyAmount: number }> | null = null;
     
     if (spansMultipleMonths && validated.operatingCostItems && validated.operatingCostItems.length > 0) {
       monthlyBreakdown = calculateMonthlyBreakdown(periodStart, periodEnd);
@@ -91,7 +91,7 @@ export async function POST(request: NextRequest) {
         periodEnd,
         grossRevenue: validated.grossRevenue,
         operatingCosts: validated.operatingCosts,
-        operatingCostItems: proratedOperatingCostItems || validated.operatingCostItems || null,
+        operatingCostItems: proratedOperatingCostItems || validated.operatingCostItems || undefined,
         managementFee: validated.managementFee,
         incomeAdjustment: incomeAdjustment,
         netDistributable,

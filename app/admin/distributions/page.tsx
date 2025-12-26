@@ -126,7 +126,7 @@ export default async function AdminDistributionsPage() {
                   </td>
                   <td className="p-4">
                     <p className="text-sm">
-                      {format(distribution.declaredAt, "MMM d, yyyy")}
+                      {distribution.declaredAt ? format(distribution.declaredAt, "MMM d, yyyy") : "-"}
                     </p>
                   </td>
                   <td className="p-4">

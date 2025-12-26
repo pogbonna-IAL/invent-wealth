@@ -52,9 +52,12 @@ export default async function StatementDetailPage({
   if (statement.operatingCostItems) {
     try {
       if (Array.isArray(statement.operatingCostItems)) {
-        operatingCostItems = statement.operatingCostItems;
+        operatingCostItems = statement.operatingCostItems as Array<{ description: string; amount: number; category?: string; originalAmount?: number; monthlyAmount?: number }>;
       } else if (typeof statement.operatingCostItems === "string") {
-        operatingCostItems = JSON.parse(statement.operatingCostItems);
+        const parsed = JSON.parse(statement.operatingCostItems);
+        if (Array.isArray(parsed)) {
+          operatingCostItems = parsed;
+        }
       }
     } catch (e) {
       // If parsing fails, create a single item from the total

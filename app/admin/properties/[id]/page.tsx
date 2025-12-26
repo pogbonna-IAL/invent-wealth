@@ -408,7 +408,7 @@ export default async function AdminPropertyDetailPage({
                             variant={
                               distribution.status === "PAID"
                                 ? "default"
-                                : distribution.status === "PENDING"
+                                : distribution.status === "PENDING_APPROVAL"
                                 ? "secondary"
                                 : "outline"
                             }

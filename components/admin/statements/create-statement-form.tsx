@@ -10,13 +10,17 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Loader2, ArrowLeft, Plus, Trash2 } from "lucide-react";
 import Link from "next/link";
-import type { Property } from "@prisma/client";
+import type { Property, PropertyStatus } from "@prisma/client";
 import { CSVImportButton } from "./csv-import-button";
 import { calculateMonthlyBreakdown, type MonthlyBreakdown } from "@/lib/utils/statement-pro-rating";
 import { formatCurrencyNGN } from "@/lib/utils/currency";
 
 interface CreateStatementFormProps {
-  properties: Property[];
+  properties: Array<Omit<Property, "pricePerShare" | "targetRaise" | "projectedAnnualYieldPct"> & {
+    pricePerShare: number;
+    targetRaise: number | null;
+    projectedAnnualYieldPct: number;
+  }>;
 }
 
 interface OperatingCostItem {

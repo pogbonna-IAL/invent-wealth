@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/server/auth";
 import { requireAdmin } from "@/server/services/admin.service";
 import { DistributionService } from "@/server/services/distribution.service";
+import { DistributionStatus, TransactionType } from "@prisma/client";
+import { prisma } from "@/server/db/prisma";
 import { z } from "zod";
 
 const declareDistributionSchema = z.object({
@@ -22,11 +24,52 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { propertyId, rentalStatementId } = declareDistributionSchema.parse(body);
 
-    // Declare distribution and create payouts
-    const result = await DistributionService.declareDistribution(
+    // Check if distribution already exists for this rental statement
+    const existingDistribution = await prisma.distribution.findFirst({
+      where: { rentalStatementId },
+    });
+
+    if (existingDistribution) {
+      return NextResponse.json(
+        { error: "A distribution already exists for this rental statement" },
+        { status: 400 }
+      );
+    }
+
+    // Create draft distribution and payouts
+    const draftResult = await DistributionService.createDraftDistribution(
       propertyId,
       rentalStatementId
     );
+
+    // Mark distribution as DECLARED (skip approval flow for direct declaration)
+    const declaredDistribution = await prisma.distribution.update({
+      where: { id: draftResult.distribution.id },
+      data: {
+        status: DistributionStatus.DECLARED,
+        declaredAt: new Date(),
+      },
+    });
+
+    // Create transaction records for all payouts
+    await Promise.all(
+      draftResult.payouts.map(async (payout) => {
+        await prisma.transaction.create({
+          data: {
+            userId: payout.userId,
+            type: TransactionType.PAYOUT,
+            amount: payout.amount,
+            currency: "NGN",
+            reference: `PAY-${payout.id.slice(0, 8).toUpperCase()}`,
+          },
+        });
+      })
+    );
+
+    const result = {
+      distribution: declaredDistribution,
+      payouts: draftResult.payouts,
+    };
 
     return NextResponse.json({
       success: true,

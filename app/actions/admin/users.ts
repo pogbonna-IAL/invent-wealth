@@ -70,7 +70,7 @@ export async function createUserManually(data: z.infer<typeof createUserSchema>)
                   riskTolerance: validated.riskTolerance || "moderate",
                   investmentExperience: validated.investmentExperience || "intermediate",
                 }
-              : null,
+              : undefined,
           },
         },
       },
@@ -171,7 +171,7 @@ export async function updateUserManually(data: z.infer<typeof updateUserSchema>)
           userId: id,
           status: updateData.onboardingStatus || "PENDING",
           kycStatus: updateData.kycStatus || "PENDING",
-          riskAnswers: onboardingData.riskAnswers || null,
+          riskAnswers: onboardingData.riskAnswers || undefined,
         },
       });
     }

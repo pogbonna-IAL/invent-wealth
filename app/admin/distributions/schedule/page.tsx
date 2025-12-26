@@ -34,6 +34,12 @@ export default async function DistributionSchedulePage() {
     take: 50,
   });
 
+  // Serialize Decimal fields to prevent passing Decimal objects to client components
+  const serializedDistributions = upcomingDistributions.map((dist) => ({
+    ...dist,
+    totalDistributed: Number(dist.totalDistributed),
+  }));
+
   return (
     <div className="space-y-8">
       <div className="flex items-center gap-4">
@@ -50,7 +56,7 @@ export default async function DistributionSchedulePage() {
         </div>
       </div>
 
-      <ScheduledDistributionsList distributions={upcomingDistributions} />
+      <ScheduledDistributionsList distributions={serializedDistributions} />
     </div>
   );
 }

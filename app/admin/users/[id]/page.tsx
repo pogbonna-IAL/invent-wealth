@@ -87,6 +87,10 @@ export default async function AdminUserDetailPage({
     },
   });
 
+  if (!user) {
+    notFound();
+  }
+
   // Get rental statements for properties user has invested in
   const propertyIds = user.investments.map((inv) => inv.propertyId);
   const rentalStatements = propertyIds.length > 0
