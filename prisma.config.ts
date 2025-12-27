@@ -13,9 +13,18 @@ console.log("[Prisma Config] All DATABASE/DB env vars:", Object.keys(process.env
 // Get DATABASE_URL from environment - read directly
 const databaseUrl = process.env.DATABASE_URL;
 
+// Throw error if DATABASE_URL is missing (don't pass empty string)
 if (!databaseUrl) {
-  console.error("[Prisma Config] ERROR: DATABASE_URL is missing!");
-  console.error("[Prisma Config] Available env keys (first 20):", Object.keys(process.env).slice(0, 20).join(", "));
+  const errorMessage = [
+    "[Prisma Config] ERROR: DATABASE_URL is required but not found!",
+    "",
+    "Available environment variables:",
+    Object.keys(process.env).slice(0, 20).join(", "),
+    "",
+    "Please ensure DATABASE_URL is set in your environment.",
+  ].join("\n");
+  console.error(errorMessage);
+  throw new Error("DATABASE_URL is required in prisma.config.ts");
 }
 
 export default defineConfig({
@@ -25,6 +34,6 @@ export default defineConfig({
   },
   datasource: {
     // Read directly from process.env - Prisma 7.x requires this in config file
-    url: databaseUrl || "",
+    url: databaseUrl, // No fallback to empty string
   },
 });
