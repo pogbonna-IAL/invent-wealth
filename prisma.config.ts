@@ -6,26 +6,57 @@ import "dotenv/config";
 import { defineConfig } from "prisma/config";
 
 // Log immediately when module loads to verify it's being executed
-console.log("[Prisma Config] Module loading...");
-console.log("[Prisma Config] DATABASE_URL at load time:", process.env.DATABASE_URL ? process.env.DATABASE_URL.substring(0, 30) + "..." : "NOT FOUND");
-console.log("[Prisma Config] All DATABASE/DB env vars:", Object.keys(process.env).filter(k => k.includes("DATABASE") || k.includes("DB")).join(", ") || "none");
+console.log("[Prisma Config] ===== CONFIG FILE LOADING =====");
+console.log("[Prisma Config] Timestamp:", new Date().toISOString());
+console.log("[Prisma Config] Working directory:", process.cwd());
+console.log("[Prisma Config] Node version:", process.version);
+console.log("[Prisma Config] NODE_ENV:", process.env.NODE_ENV || "not set");
+console.log("[Prisma Config] NEXT_PHASE:", process.env.NEXT_PHASE || "not set");
 
-// Get DATABASE_URL from environment - read directly
+// Check DATABASE_URL availability
 const databaseUrl = process.env.DATABASE_URL;
+console.log("[Prisma Config] DATABASE_URL at load time:", databaseUrl ? databaseUrl.substring(0, 30) + "..." : "NOT FOUND");
+console.log("[Prisma Config] DATABASE_URL length:", databaseUrl ? databaseUrl.length : 0);
+console.log("[Prisma Config] DATABASE_URL type:", typeof databaseUrl);
+console.log("[Prisma Config] DATABASE_URL truthy check:", !!databaseUrl);
+
+// Log all DATABASE/DB related env vars
+const dbRelatedVars = Object.keys(process.env).filter(k => k.includes("DATABASE") || k.includes("DB"));
+console.log("[Prisma Config] All DATABASE/DB env vars:", dbRelatedVars.length > 0 ? dbRelatedVars.join(", ") : "none");
+if (dbRelatedVars.length > 0) {
+  dbRelatedVars.forEach(key => {
+    const value = process.env[key];
+    console.log(`[Prisma Config]   ${key}:`, value ? value.substring(0, 30) + "..." : "empty");
+  });
+}
+
+// Log total environment variable count
+console.log("[Prisma Config] Total environment variables:", Object.keys(process.env).length);
+console.log("[Prisma Config] First 30 env var keys:", Object.keys(process.env).slice(0, 30).join(", "));
 
 // Throw error if DATABASE_URL is missing (don't pass empty string)
 if (!databaseUrl) {
   const errorMessage = [
     "[Prisma Config] ERROR: DATABASE_URL is required but not found!",
     "",
-    "Available environment variables:",
-    Object.keys(process.env).slice(0, 20).join(", "),
+    "Debug Information:",
+    `  - Timestamp: ${new Date().toISOString()}`,
+    `  - Working Directory: ${process.cwd()}`,
+    `  - Node Version: ${process.version}`,
+    `  - NODE_ENV: ${process.env.NODE_ENV || "not set"}`,
+    `  - Total Env Vars: ${Object.keys(process.env).length}`,
+    "",
+    "Available environment variables (first 50):",
+    Object.keys(process.env).slice(0, 50).join(", "),
     "",
     "Please ensure DATABASE_URL is set in your environment.",
   ].join("\n");
   console.error(errorMessage);
   throw new Error("DATABASE_URL is required in prisma.config.ts");
 }
+
+console.log("[Prisma Config] ✓ DATABASE_URL is available, creating config...");
+console.log("[Prisma Config] Config will use DATABASE_URL:", databaseUrl.substring(0, 30) + "...");
 
 export default defineConfig({
   schema: "prisma/schema.prisma",
@@ -37,3 +68,6 @@ export default defineConfig({
     url: databaseUrl, // No fallback to empty string
   },
 });
+
+console.log("[Prisma Config] ✓ Config object created successfully");
+console.log("[Prisma Config] ===== CONFIG FILE LOADED =====");
