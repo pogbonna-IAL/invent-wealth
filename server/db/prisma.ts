@@ -1,6 +1,4 @@
 import { PrismaClient } from "@prisma/client";
-import { PrismaPg } from "@prisma/adapter-pg";
-import { Pool } from "pg";
 
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;
@@ -11,7 +9,7 @@ const globalForPrisma = globalThis as unknown as {
  * Prisma Client instance
  * Uses singleton pattern to prevent multiple instances in development
  * 
- * Prisma 7.x requires an adapter for PostgreSQL connections.
+ * Prisma 6.x reads DATABASE_URL directly from environment variables.
  * Ensure DATABASE_URL is set in your .env file.
  * 
  * This uses lazy initialization to avoid requiring DATABASE_URL during build time.
@@ -39,18 +37,11 @@ function getDatabaseUrl(): string {
 
 // Lazy initialization - only create connection when actually needed
 function createPrismaClient(): PrismaClient {
-  const databaseUrl = getDatabaseUrl();
-  
-  // Create PostgreSQL connection pool
-  const pool = new Pool({
-    connectionString: databaseUrl,
-  });
-
-  // Create Prisma adapter
-  const adapter = new PrismaPg(pool);
+  // Prisma 6.x reads DATABASE_URL from environment automatically via schema.prisma
+  // We just need to ensure it's set (checked by getDatabaseUrl)
+  getDatabaseUrl();
 
   return new PrismaClient({
-    adapter,
     log: process.env.NODE_ENV === "development" ? ["query", "error", "warn"] : ["error"],
   });
 }

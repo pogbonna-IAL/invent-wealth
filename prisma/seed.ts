@@ -1,24 +1,12 @@
 import "dotenv/config";
 import { PrismaClient } from "@prisma/client";
-import { PrismaPg } from "@prisma/adapter-pg";
-import { Pool } from "pg";
 
 if (!process.env.DATABASE_URL) {
   throw new Error("DATABASE_URL environment variable is not set");
 }
 
-// Create PostgreSQL connection pool
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-});
-
-// Create Prisma adapter
-const adapter = new PrismaPg(pool);
-
-// Create Prisma Client with adapter (required for Prisma 7.x)
-const prisma = new PrismaClient({
-  adapter,
-});
+// Create Prisma Client (Prisma 6.x reads DATABASE_URL from environment automatically)
+const prisma = new PrismaClient();
 
 // Helper function to generate slug from name
 function slugify(text: string): string {
