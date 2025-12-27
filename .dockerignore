@@ -1,24 +1,26 @@
+# Dependencies
 node_modules
-.next
-out
-dist
-.git
-.gitignore
-README.md
-.env
-.env.local
-.env*.local
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-.DS_Store
-*.pem
+
+# Next.js
+.next
+out
+build
+dist
 
 # Testing
 coverage
 .nyc_output
 test-results
 playwright-report
+
+# Environment files
+.env
+.env*.local
+.env.development
+.env.production
 
 # IDE
 .vscode
@@ -27,28 +29,36 @@ playwright-report
 *.swo
 *~
 
-# Build artifacts
-*.tsbuildinfo
-next-env.d.ts
-
-# Logs
-logs
-*.log
-
-# Misc
+# OS
+.DS_Store
 Thumbs.db
-.cache
-.turbo
+
+# Git
+.git
+.gitignore
+.gitattributes
 
 # Documentation
+README.md
 *.md
-!README.md
-docs/
+docs
 
-# Scripts (keep only essential)
-scripts/
-!scripts/docker-entrypoint.sh
-!scripts/wait-and-migrate.sh
-!scripts/wait-and-migrate.js
-!scripts/run-migrations.js
+# Docker
+Dockerfile*
+docker-compose*.yml
+.dockerignore
 
+# Railway
+railway.json
+nixpacks.toml
+
+# Cache
+.cache
+node_modules/.cache
+.npm
+.eslintcache
+
+# Misc
+*.log
+*.tmp
+*.temp

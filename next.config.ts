@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   // Enable standalone output for production builds (Railway and Docker)
-  output: process.env.DOCKER_BUILD || process.env.NODE_ENV === "production" ? "standalone" : undefined,
+  output: "standalone",
   
   images: {
     remotePatterns: [
